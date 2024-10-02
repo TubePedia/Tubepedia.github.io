@@ -50,25 +50,59 @@
 // Lấy thời gian cập nhật cuối cùng từ document
 const lastUpdated = new Date(document.lastModified);
 
-// Định dạng chi tiết thời gian
+// Hàm kiểm tra múi giờ người dùng để định dạng giờ 12h hoặc 24h
+function is24HourFormat() {
+    const userLocale = navigator.language || 'en-US'; // Lấy ngôn ngữ của người dùng
+    const region = userLocale.split('-')[1] || 'US'; // Lấy quốc gia
+    const regions24Hour = ['VN', 'FR', 'DE', 'RU', 'CN']; // Các quốc gia sử dụng định dạng 24h
+
+    return regions24Hour.includes(region);
+}
+
+// Định dạng thời gian theo quốc gia
 const options = {
     hour: 'numeric',
     minute: 'numeric',
-    hour12: true, // Để hiển thị giờ theo định dạng 12 giờ (AM/PM)
+    hour12: !is24HourFormat(), // Sử dụng 24h hay 12h dựa trên quốc gia
     day: 'numeric',
     month: 'numeric',
     year: 'numeric'
 };
 
 // Chuyển đổi thành chuỗi theo định dạng
-const formattedDate = lastUpdated.toLocaleString('en-US', options);
+const formattedDate = lastUpdated.toLocaleString(navigator.language, options);
+
+// Tính thời gian hiện tại trừ thời gian cập nhật cuối
+function timeSinceLastUpdate(lastUpdate) {
+    const now = new Date();
+    const timeDiff = now - lastUpdate;
+    const seconds = Math.floor(timeDiff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 0) {
+        return `${days} ngày trước`;
+    } else if (hours > 0) {
+        return `${hours} giờ trước`;
+    } else if (minutes > 0) {
+        return `${minutes} phút trước`;
+    } else {
+        return `vài giây trước`;
+    }
+}
 
 // Chèn vào phần tử HTML khi trang tải
 document.addEventListener("DOMContentLoaded", function() {
     const updateElement = document.getElementById('last-update');
+    const timePassedElement = document.getElementById('time-passed');
+
+    // Hiển thị thời gian cập nhật cuối cùng
     updateElement.textContent = 'Last updated by admin: ' + formattedDate;
+
+    // Hiển thị thời gian đã trôi qua từ lần cập nhật cuối
+    timePassedElement.textContent = 'Cập nhật cách đây: ' + timeSinceLastUpdate(lastUpdated);
 });
     </script>
-
 </body>
 </html>
