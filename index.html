@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đồng Hồ Bấm Giây</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .timer {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:active {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<p id="last-update"></p>
+    <h1>Đồng Hồ Bấm Giây</h1>
+    <div class="timer" id="timer">0:00</div>
+    <button class="button" id="startButton">Nhấn giữ để chuẩn bị</button>
+<a href="https://discord.com/api/oauth2/authorize?client_id=1290259588280750104&redirect_uri=https%3A%2F%2Fvinygamer124.github.io%2Fcallback&response_type=code&scope=identify">
+    <button style="background-color: #7289da; color: white; padding: 10px 20px; border: none; cursor: pointer;">
+        Đăng nhập bằng Discord
+    </button>
+</a>
+    <script>
+// Lấy thời gian cập nhật cuối cùng từ document
+const lastUpdated = new Date(document.lastModified);
+
+// Định dạng chi tiết thời gian
+const options = {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true, // Để hiển thị giờ theo định dạng 12 giờ (AM/PM)
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric'
+};
+
+// Chuyển đổi thành chuỗi theo định dạng
+const formattedDate = lastUpdated.toLocaleString('en-US', options);
+
+// Chèn vào phần tử HTML khi trang tải
+document.addEventListener("DOMContentLoaded", function() {
+    const updateElement = document.getElementById('last-update');
+    updateElement.textContent = 'Last updated by admin: ' + formattedDate;
+});
+    </script>
+
+</body>
+</html>
