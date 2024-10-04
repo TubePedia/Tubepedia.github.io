@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
       'en': 'index.html',
       'vi': 'indexvi.html',
     },
-    '404.html': {
-      'en': '404.html',
-      'vi': '404.html',
+    'about.html': {
+      'en': 'about.html',
+      'vi': 'aboutvi.html',
     },
     // Thêm các trang khác tại đây
   };
@@ -44,15 +44,22 @@ document.addEventListener('DOMContentLoaded', () => {
       // Kiểm tra nếu có URL cho ngôn ngữ tương ứng
       if (languageUrls[currentPage] && languageUrls[currentPage][lang]) {
         newUrl = languageUrls[currentPage][lang]; // Lấy URL mới từ đối tượng
+        localStorage.setItem('selectedLanguage', lang); // Lưu ngôn ngữ đã chọn
       } else {
-        // Nếu không có URL mới, hiển thị thông báo và chuyển ngôn ngữ về tiếng Anh
+        // Nếu không có URL mới, hiển thị thông báo
         alert('The language for this wiki is not supported or not yet available.');
-        newUrl = languageUrls[currentPage] ? languageUrls[currentPage]['en'] : 'index.html'; // Chuyển về tiếng Anh
+        if (languageUrls[currentPage]) {
+          // Chuyển về tiếng Anh nếu không có URL mới
+          newUrl = languageUrls[currentPage]['en'];
+          localStorage.setItem('selectedLanguage', 'en'); // Cập nhật ngôn ngữ trong localStorage
+        } else {
+          newUrl = 'index.html'; // Nếu không tìm thấy trang, chuyển đến trang chính
+          localStorage.setItem('selectedLanguage', 'en'); // Đặt lại ngôn ngữ trong localStorage
+        }
       }
 
       // Chuyển hướng
       window.location.href = newUrl;
-      localStorage.setItem('selectedLanguage', lang);
     });
 
     // Kiểm tra ngôn ngữ đã lưu trong localStorage hoặc dò tìm ngôn ngữ
