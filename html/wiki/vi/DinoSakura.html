@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dino Sakura Wiki</title>
+    <!-- Link to the external CSS file -->
+        <link rel="stylesheet" href="css/styles.css">
+        	    <link rel="icon" href="https://lh3.googleusercontent.com/pw/AP1GczPIQa7Z8qHsvk9Ux9cOJF959-Unzkr4cjMWSCxhkeYqcjniXDNe7V_jjZwX52fsA6sQkdL9xvJYDnEkn3m8gI_oquQ6LPr7TB6DiO_R14Bb5hMHPWzP4Wdb-ZcDHNfS_dYKdUINxKVvsUlUsX57OwUD=w1024-h1024-s-no-gm?authuser=0" type="image/png">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <a href="index.html">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczP6r9-tE9Tubja8qMNkhBSZEB9PLkh_vEYa8IcwsMsz2DGEph1NOx2juWQRrJ76S7iwKVhyBNVpl1BGkNMiWi_ma2pqSGKLF31R6BIriFsjVajjbapAVj_9xAXV6yzVHKJCWHg1FVlQWuHD49MILbQd=w1024-h1024-s-no-gm?authuser=0" alt="Logo">
+        </a>
+        <h1>TubePedia</h1>
+    </header>
+
+    <!-- Navigation Section -->
+    <nav class="nav">
+        <a href="#">Start a Wiki</a>
+        <a href="#">Sign In</a>
+        <a href="#">Register</a>
+        <a href="https://vinygamer124.github.io/report.html" target="_blank">Report</a>
+    </nav>
+
+    <noscript>
+        <div class="no-js-warning">
+            <h1>JavaScript is disabled in your browser.</h1>
+            <p>Please enable JavaScript to view this website properly.</p>
+        </div>
+    </noscript>
+
+    <div id="reminder" style="display: none; position: fixed; top: 10px; right: 10px; padding: 10px; background-color: #ffeb3b; color: #000; border: 1px solid #000; border-radius: 5px;">
+    It's time to take a break! Rest to protect your eyes.
+</div>
+
+    <div id="settings-button" class="settings-button">
+        <i class="icon-settings"></i>
+    </div>
+
+    <div id="settings-popup" class="settings-popup">
+    <button id="close-popup" class="close-popup">&times;</button>
+    <h2>Settings</h2>
+    <div class="language-selector">
+        <label for="language">Choose Language:</label>
+        <select id="language">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="pt">Português</option>
+            <option value="ru">Русский</option>
+            <option value="de">Deutsch</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="vi">Tiếng Việt</option>
+            <option value="it">Italiano</option>
+        </select>
+    </div>
+    <div class="theme-selector">
+        <label for="theme">Choose Theme:</label>
+        <select id="theme">
+            <option value="automatic">Automatic</option>
+            <option value="dark">Dark Mode</option>
+            <option value="light">Light Mode</option>
+        </select>
+    </div>
+    <div class="font-size-selector">
+    <label for="font-size">Font Size:</label>
+    <input type="range" id="font-size" min="10" max="30" value="16">
+    <span id="font-size-value">16px</span>
+</div>
+<div class="reader-mode-selector">
+    <label for="reader-mode">Reader Mode:</label>
+    <input type="checkbox" id="reader-mode">
+</div>
+<div class="font-family-selector">
+    <label for="font-family">Font Family:</label>
+    <select id="font-family">
+        <option value="Arial">Arial</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Verdana">Verdana</option>
+    </select>
+</div>
+<div class="fullscreen-mode">
+        <button id="fullscreen-button">Enter Fullscreen</button>
+    </div>
+</div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button id="searchButton">Search</button>
+    </div>
+
+    <!-- Search Results -->
+    <div id="searchResults" class="search-results" style="display:none;">
+        <ul id="resultsList"></ul>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="popular-pages">
+                <h2>Wiki Virtual YouTuber</h2>
+                <p>623 pages</p>
+            </div>
+            <div class="advertisement">
+                <h3>Advertisement</h3>
+                <p>This is where your ad goes!</p>
+            </div>
+            <div class="community-section">
+                <h2>Community</h2>
+                <p>Popular Pages</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <h2>Dino Sakura</h2>
+            <img src="https://yt3.googleusercontent.com/AJPZCNGXhmI_4h12BhWP9TrBTv6bkrFoQsFguCQH0_bZdVpGH-R6SdgG96X3tnlpSIp1mDS5=s160-c-k-c0x00ffffff-no-rj" alt="Dino Sakura">
+            <h3>Thông tin cơ bản</h3>
+            <p><strong>Ngày debut:</strong> YouTube: Ngày 5 tháng 10 năm 2021</p>
+            <p><strong>Thiết kế nhân vật:</strong> Hoạt hình: Nga Phương, Hình minh họa: Thùy Trinh Trương</p>
+            <p><strong>Chi nhánh:</strong> Vietuber Studio (trước đây là tự do)</p>
+
+            <h3>Phương tiện truyền thông</h3>
+            <ul>
+                <li><strong>Kênh YouTube:</strong> <a href="https://youtube.com/@dinosakura35?si=y6j-7ktBnvqOsgbD" target="_blank">Dino Sakura</a></li>
+    <li><strong>Kênh YouTube (clip ngắn):</strong> <a href="https://youtube.com/@dinosakurashorts?si=12ypaEHAnO_L2Vbv" target="_blank">Dino Sakura</a></li>
+    <li><strong>Mạng xã hội:</strong></li>
+    <li><a href="https://www.facebook.com/DinoSakura35" target="_blank">Facebook</a></li>
+    <li><a href="https://www.tiktok.com/@dinosakura3?_t=8otNxXDZqp5&_r=1" target="_blank">Tiktok</a></li>
+            </ul>
+
+            <h3>Thông tin cá nhân</h3>
+            <p><strong>Chủng loài:</strong> Khủng long</p>
+            <p><strong>Giới tính:</strong> Nam</p>
+            <p><strong>Tuổi:</strong> >300 triệu tuổi</p>
+            <p><strong>Ngày sinh:</strong> 10 tháng 9</p>
+            <p><strong>Chiều cao:</strong> Xấp xỉ 150 cm khi dạng người</p>
+            <p><strong>Cân nặng:</strong> Xấp xỉ 42 kg khi dạng người</p>
+            <p><strong>Cung hoàng đạo:</strong> Xử Nữ</p>
+            <p><strong>Emoji:</strong> 🦖🌸⛰️</p>
+
+            <h3>Mục lục</h3>
+            <ol>
+                <li><a href="#sectionA">Video giới thiệu</a></li>
+                <li><a href="#sectionB">Tiểu sử</a>
+                    <ul>
+                        <li><a href="#sectionB1">Tiểu sử nhân vật</a></li>
+                        <li><a href="#sectionB2">Tiểu sử thật sự</a></li>
+                    </ul>
+                </li>
+                <li><a href="#sectionC">Drama gần đây</a></li>
+                <li><a href="#sectionD">Ngoại hình</a></li>
+                <li><a href="#sectionE">Lịch sử</a></li>
+                    <ul>
+                        <li><a href="#sectionE1">Lịch sử hoạt động</a></li>
+                        <li><a href="#sectionE2">2023</a></li>
+                        <li><a href="#sectionE3">2024</a></li>
+                    </ul>
+                </li>
+                <li><a href="#sectionF">Fan</a></li>
+                    <ul>
+                        <li><a href="#sectionG">Quan hệ</a></li>
+                    </ul>
+                </li>
+                <li><a href="#sectionH">Thông tin thêm</a></li>
+                    <ul>
+                        <li><a href="#sectionH1">Thích và không thích</a></li>
+                    </ul>
+                </li>
+                <li><a href="#sectionI">Liên kết ngoài</a></li>
+                    <ul>
+                        <li><a href="#sectionI1">Truyền thông</a></li>
+                        <li><a href="#sectionI2">Facebook hashtag</a></li>
+                    </ul>
+                </li>
+                <li><a href="#sectionJ">Tham khảo</a></li>
+            </ol>
+
+            <h2 id="sectionA">Video giới thiệu</h2>
+            <p><a href="#">【Renew_Model】Mình đã ' TIẾN HÓA ' rồi các bạn ơi!?【Dino Sakura】</a></p>
+            <h2 id="sectionB">Tiểu sử</h2>
+            <h2 id="sectionB1">Tiểu sử nhân vật</h2>
+            <p>Dino Sakura là một YouTuber và nhân vật hoạt hình nổi tiếng, được yêu thích bởi nội dung giải trí dành cho trẻ em.</p>
+            <p>Với hình dáng dễ thương và tính cách vui nhộn, Dino tham gia vào nhiều cuộc phiêu lưu, trò chơi và hoạt động giáo dục.</p>
+            <p>Các video của Dino thường mang đến bài học về tình bạn, sự sáng tạo và lòng dũng cảm, thu hút một cộng đồng người hâm mộ đông đảo, đặc biệt là trẻ nhỏ.</p>
+            <p>Thông qua những nội dung bắt mắt và âm thanh vui tươi, Dino Sakura giúp trẻ em vừa học vừa chơi, tạo ra những kỷ niệm đáng nhớ.</p>
+            <h2 id="sectionB2">Tiểu sử thật sự</h2>
+            <p>Dino Sakura, một Vtuber người Việt với cái tên nghe thật duyên dáng và đầy bí ẩn, đã ra mắt trên YouTube vào tháng 10 năm 2021 dưới hình tượng một nhân vật khủng long dễ thương ít ai ngờ rằng phía sau hậu trường ấy lại là một anh chàng sinh ngày 10/9/2003 tên Lâm Hữu Tấn. Hành trình của "anh" trên YouTube đã kéo dài suốt bốn năm ròng rã, từ những video đầu tiên còn vụng về cho đến những clip shorts đầy sáng tạo, không kém phần hài hước, dần dần định hình nên tên tuổi của Dino Sakura trong lòng người hâm mộ.</p>
+           <h2 id="sectionC">Drama gần đây</h2>
+<p>Sự nghiệp của anh thực sự tăng vọt vào năm 2023 khi anh nhanh chóng thu hút được hơn 100.000 người đăng ký chỉ trong vài tháng nhờ sự bùng nổ của YouTube Shorts. Đến năm 2024, Dino Sakura chính thức đạt 500.000 người đăng ký trên YouTube, chủ yếu tập trung vào nội dung trò chơi, với một bộ phận đáng kể khán giả dưới 18 tuổi.</p>
+<p>Tuy nhiên, cùng với sự nổi tiếng ngày càng tăng, Dino Sakura cũng bắt đầu đối mặt với nhiều sóng gió. Trong những tháng gần đây, anh đã bị chỉ trích rộng rãi từ nhiều cá nhân, bao gồm cả những người dùng YouTube và TikToker Việt Nam bởi vì anh ấy đã sử dụng phần mềm thay đổi giọng nói thành phụ nữ, bị cáo buộc giả vờ là phụ nữ trong khi thực chất là nam giới. Những lời cáo buộc này bắt nguồn từ một sự cố trong buổi phát trực tiếp khi Dino Sakura vô tình làm rò rỉ CMND, tiết lộ rằng tên thật là Lâm Hữu Tấn. Ngay sau đó, anh đã xóa luồng phát trực tiếp và tuyên bố rằng đây chỉ là một trò đùa, nhưng dư luận vẫn không ngừng tranh cãi về sự thật đằng sau nhân vật này.</p>
+<p>Hơn nữa, Dino Sakura còn bị lên án vì hành vi không phù hợp trong các buổi phát trực tiếp, đặc biệt là khi đối tượng khán giả chủ yếu là thanh thiếu niên. Hiện tại, tình hình vẫn đang được tranh luận sôi nổi giữa NGƯỜI HÂM MỘ CỦA SAKURA và những người không tin tưởng anh. Cuộc tranh luận này không chỉ phản ánh sự phức tạp của thế giới Vtuber mà còn cho thấy những thách thức mà các NGƯỜI HÂM MỘ TRUNG THÀNH phải đối mặt khi danh tiếng của họ ngày càng lớn mạnh.</p>
+          <h2 id="sectionD">Ngoại hình</h2> 
+          <p>Dino Sakura có một ngoại hình đặc trưng rất dễ nhận biết và đáng yêu, thu hút sự yêu thích của cộng đồng người hâm mộ. Với mái tóc hồng nhạt nổi bật và đôi mắt to tròn màu đỏ cam rực rỡ, Dino tạo cảm giác năng động và thân thiện ngay từ cái nhìn đầu tiên. Điểm đặc biệt trong trang phục của cô là chiếc áo hoodie màu xanh lá cây có hình dáng như một con khủng long, với phần mũ trùm đầu thiết kế giống đầu khủng long, bao gồm các chi tiết như mắt, mũi và những chiếc gai nhỏ nhô lên từ phần thân.</p>
+         <p>Phong cách này không chỉ giúp Dino Sakura dễ dàng ghi điểm với trẻ em mà còn phù hợp với hình ảnh vui tươi và đáng yêu mà cô xây dựng trong các video của mình. Ngoài ra, chi tiết về trang phục khủng long cũng phần nào thể hiện tính cách hoạt bát, vui nhộn của cô, luôn sẵn sàng tham gia vào những cuộc phiêu lưu và thử thách thú vị. Dino Sakura thường xuất hiện với vẻ ngoài này trong hầu hết các video, mang lại cho người xem cảm giác gần gũi và vui vẻ, đặc biệt là với các bạn nhỏ yêu thích nhân vật hoạt hình.</p>
+         <h2 id="sectionE">Lịch sử</h2>
+         <h2 id="sectionE1">Lịch sử hoạt động</h2>
+         <p>Ngày 27 tháng 11 năm 2020, kênh YouTube của Sakura chính thức được tạo.</p>
+         <p>Vào ngày 5 tháng 10 năm 2021, Sakura có buổi debut model đầu tiên trên YouTube.</p>
+        <h2 id="sectionE2">2023</h2>
+        <p>Ngày 28 tháng 7, Sakura đạt 100.000 lượt đăng ký trên kênh YouTube. Cột mốc này mở khóa phần thưởng cosplay hầu gái trên stream vào ngày 13 tháng 8.</p>
+        <p>Ngày 13 tháng 10, Sakura đạt 200.000 lượt đăng ký trên kênh YouTube. Để kỷ niệm cột mốc này, cô lần đầu tiên ra mắt chị gái với người xem vào ngày 15 tháng 10.</p>
+        <h2 id="sectionE3">2024</h2>
+        <p>Ngày 10 tháng 2, Sakura đạt 300.000 lượt đăng ký trên kênh YouTube trong một stream đếm ngược.</p>
+        <p>Ngày 23 tháng 5, Sakura đạt 400.000 lượt đăng ký trên kênh YouTube.</p>
+        <h2 id="sectionF">Fan</h2>
+        <p>Fan của Sakura được gọi là "Dino con".</p>
+        <h2 id="sectionG">Quan hệ</h2>
+        <p>Dino Sakura là cộng sự (hoặc nô lệ) của Suwako Nao (Sứa có não) và Kronus (Kro).</p>
+        <h2 id="sectionH">Thông tin thêm</h2>
+        <h2 id="sectionH1">Thích và không thích</h2>
+        <h2 id="sectionI">Liên kết ngoài</h2>
+        <h2 id="sectionI1">Truyền thông</h2>
+        <p><a href="https://youtube.com/@dinosakurashorts?si=12ypaEHAnO_L2Vbv" target="_blank">Dino Sakura</a>- Kênh YouTube .</p>
+        <p><a href="https://youtube.com/@dinosakurashorts" target="_blank">Dino Sakura Shorts</a> - Kênh YouTube phụ đăng clip ngắn.</p>
+        <p><a href="https://discord.com/invite/7A2pkZgzcD" target="_blank">Đảo Khủng Long</a> - Discord</p>
+        <p><a href="https://www.facebook.com/DinoSakura35" target="_blank">Dino Sakura</a>- Trang Facebook.</p>
+        <p><a href="https://www.tiktok.com/@dinosakura3" target="_blank">@dinosakura3</a>- Tài khoản Tiktok.</p>
+         <h2 id="sectionI2">Facebook hashtags</h2>
+         <p><a href="https://www.facebook.com/hashtag/DinoSakura" target="_blank">#DinoSakura</a>- Chung.</p>
+        <p><a
+        <h2 id="sectionJ">Tham khảo</h2>
+        <li><strong>1.Dino, S. [Dino Sakura]. (2023, 13 tháng 8).</strong> <a href="https://youtu.be/Mahqi5PeFpM?t=92"_blank">LẦN ĐẦU MẶC ĐỒ HẦU GÁI CẢM ƠN 100K SUBS ! ! !</a></li>
+        <li><strong>2.Dino, S. [Dino Sakura]. (2023, 15 tháng 10).</strong> <a href="https://youtu.be/BY4XKLJmaC4"_blank">RA MẮT CHỊ GÁI VỚI ANH EM VIEWER!</a></li>
+        <li><strong>3.Dino, S. [Dino Sakura]. (2024, 10 tháng 2).</strong> <a href="https://youtu.be/wi0bjEv4jRE?t=620"_blank">300K ?</a></li>
+        <li><strong>4.Dino, S. [Dino Sakura]. (2024, 2 tháng 6).</strong> <a href="https://www.youtube.com/live/uwZv1_TaU8w?si=bl3kGd5Z9EX6PEU-"_blank">DINO COSPLAY CẢM ƠN 400K SUBSCRIBE ! ! ! DINO SAKURA HẦU GÁI PHIÊN BẢN 2.0 NEW !!! ?</a></li>
+            <!-- Tiếp tục với nội dung chi tiết về tiểu sử, ngoại hình, lịch sử, fan, v.v. -->
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-section">
+        <img src="https://lh3.googleusercontent.com/pw/AP1GczP6r9-tE9Tubja8qMNkhBSZEB9PLkh_vEYa8IcwsMsz2DGEph1NOx2juWQRrJ76S7iwKVhyBNVpl1BGkNMiWi_ma2pqSGKLF31R6BIriFsjVajjbapAVj_9xAXV6yzVHKJCWHg1FVlQWuHD49MILbQd=w1024-h1024-s-no-gm?authuser=0" alt="Logo" class="footer-logo">
+        <div class="footer-links">
+            <h3>Explore Properties</h3>
+            <a href="#">Fandom</a>
+            <a href="#">Muthead</a>
+            <a href="#">Fanatical</a>
+        </div>
+        <div class="footer-social">
+            <h3>Theo dõi chúng tôi</h3>
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+            <a href="#">Instagram</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Tổng quan | What is Fandom? | Giới thiệu | Tuyển dụng | Báo chí | Liên hệ</p>
+        <p>Điều khoản sử dụng | Chính sách bảo mật | Digital Services Act</p>
+        <p>Sơ đồ web toàn cầu | Sơ đồ web cục bộ</p>
+        <p id="copyright"></p>
+    </div>
+    
+    
+    
+
+</div>
+</footer>
+    <!-- Link to the external JavaScript file -->
+    <script src="js/scripts.js"></script>
+    <script src="js/lang.js"></script>
+    <script src="js/sleep-mode.js"></script>
+    <script src="js/theme.js"></script>
+</body>
+</html>

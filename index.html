@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tubepedia</title>
+    <link rel="icon" href="https://lh3.googleusercontent.com/pw/AP1GczPIQa7Z8qHsvk9Ux9cOJF959-Unzkr4cjMWSCxhkeYqcjniXDNe7V_jjZwX52fsA6sQkdL9xvJYDnEkn3m8gI_oquQ6LPr7TB6DiO_R14Bb5hMHPWzP4Wdb-ZcDHNfS_dYKdUINxKVvsUlUsX57OwUD=w1024-h1024-s-no-gm?authuser=0" type="image/png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P06LHXL33D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-P06LHXL33D');
+</script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <a href="index.html">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczPIQa7Z8qHsvk9Ux9cOJF959-Unzkr4cjMWSCxhkeYqcjniXDNe7V_jjZwX52fsA6sQkdL9xvJYDnEkn3m8gI_oquQ6LPr7TB6DiO_R14Bb5hMHPWzP4Wdb-ZcDHNfS_dYKdUINxKVvsUlUsX57OwUD=w1024-h1024-s-no-gm?authuser=0" alt="Logo">
+        </a>
+        <h1>Tubepedia</h1>
+    </div>
+
+    <!-- Navigation Section -->
+    <div class="nav">
+        <a href="#">Bắt đầu một Wiki</a>
+        <a href="#">Đăng nhập</a>
+        <a href="#">Đăng ký</a>
+        <a href="https://vinygamer124.github.io/report.html" target="_blank">Báo cáo</a>
+    </div>
+
+<!-- Setting -->
+    <div id="settings-button" class="settings-button">
+    ⚙️
+</div>
+
+<div id="settings-popup" class="settings-popup">
+    <button id="close-popup" class="close-popup">&times;</button>
+    <h2>Settings</h2>
+    <div class="language-selector">
+        <label for="language">Choose Language:</label>
+        <select id="language">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="pt">Português</option>
+            <option value="ru">Русский</option>
+            <option value="de">Deutsch</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="vi">Tiếng Việt</option>
+            <option value="it">Italiano</option>
+        </select>
+    </div>
+    <div class="theme-selector">
+        <label for="theme">Choose Theme:</label>
+        <select id="theme">
+            <option value="automatic">Automatic</option>
+            <option value="dark">Dark Mode</option>
+            <option value="light">Light Mode</option>
+        </select>
+    </div>
+    <div class="font-size-selector">
+    <label for="font-size">Font Size:</label>
+    <input type="range" id="font-size" min="10" max="24" value="16">
+    <span id="font-size-value">16px</span>
+</div>
+<div class="reader-mode-selector">
+    <label for="reader-mode">Reader Mode:</label>
+    <input type="checkbox" id="reader-mode">
+</div>
+<div class="font-family-selector">
+    <label for="font-family">Font Family:</label>
+    <select id="font-family">
+        <option value="Arial">Arial</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Verdana">Verdana</option>
+    </select>
+</div>
+<div class="fullscreen-mode">
+        <button id="fullscreen-button">Enter Fullscreen</button>
+    </div>
+</div>
+
+    <noscript>
+        <div class="no-js-warning">
+            <h1>JavaScript đã bị tắt trên trình duyệt của bạn.</h1>
+            <p>Vui lòng bật JavaScript để xem trang web này một cách đầy đủ.</p>
+        </div>
+    </noscript>
+<div id="reminder" style="display: none; position: fixed; top: 10px; right: 10px; padding: 10px; background-color: #ffeb3b; color: #000; border: 1px solid #000; border-radius: 5px;width: 250px;height: 50px;">
+    It's time to take a break! Rest to protect your eyes.
+    </div>
+<a href="#" id="topBtn">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczNrSpRLMcko9ckLj-72fJLwQrtt8K5OnuRV0-RhdGiE6yjTkZ-kkkM4_Ze7Sy1NIJ_0TRGoece_H9fh5_GOJLUuMakhP-Bs67jHGeMncwwi_VSFXXNTnSbAKq_VlBRM1J0-zqf62-Jib_ZVPGmU364t=w200-h200-s-no-gm?authuser=0" alt="Go to top" width="50" height="50">
+        </a>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button id="searchButton">Search</button>
+    </div>
+
+    <div id="searchResults" class="search-results" style="display:none;">
+        <ul id="resultsList"></ul>
+    </div>
+
+        <div class="main-content"> <!-- Đã đổi tên lớp từ container sang main-content -->
+        <div class="section intro">
+            <h1>Chào mừng đến với YouTuberpedia!</h1>
+            <p>YouTuberpedia là nguồn tài liệu toàn diện về các YouTuber nổi tiếng. Trang wiki này cung cấp thông tin chi tiết về các nhà sáng tạo nội dung hàng đầu trên YouTube, bao gồm hồ sơ cá nhân, sự nghiệp, thành tích nổi bật và ảnh hưởng của họ trong cộng đồng. Khám phá YouTuberpedia để hiểu rõ hơn về các YouTuber yêu thích của bạn và tìm hiểu về những gì đã giúp họ trở thành những ngôi sao hàng đầu trên nền tảng video này.</p>
+        </div>
+
+        <div class="section content">
+            <h2>Mục Lục</h2>
+            <ul>
+                <li><a href="#top-youtubers">Các YouTuber Hàng Đầu</a></li>
+                <li><a href="#youtube-channels">Các Kênh YouTube Nổi Tiếng</a></li>
+                <li><a href="#content-categories">Các Danh Mục Nội Dung</a></li>
+                <li><a href="#trending-videos">Video Đang Xu Hướng</a></li>
+                <li><a href="#creator-spotlight">Tỏa Sáng Nhà Sáng Tạo</a></li>
+                <li><a href="#community">Cộng Đồng và Tương Tác</a></li>
+            </ul>
+        </div>
+
+        <div class="section guide">
+            <h2>Hướng Dẫn Sử Dụng</h2>
+            <p>Để bắt đầu sử dụng TubePedia, hãy sử dụng thanh tìm kiếm ở trên cùng để tìm thông tin về các YouTuber hoặc các kênh YouTube mà bạn quan tâm. Bạn cũng có thể duyệt qua các mục trong mục lục để khám phá các chủ đề và nội dung khác nhau. Đừng ngần ngại đóng góp và chỉnh sửa nội dung nếu bạn có thông tin bổ sung hoặc cập nhật!</p>
+        </div>
+
+        <div class="section news">
+            <h2>Tin Tức và Cập Nhật Mới</h2>
+            <p><strong>Ngày 15 tháng 8, 2024:</strong> Chúng tôi đã cập nhật các hồ sơ của các YouTuber nổi tiếng nhất và thêm một số bài viết mới về các video đang xu hướng.</p>
+            <p><strong>Ngày 10 tháng 8, 2024:</strong> Trang wiki của chúng tôi đã thêm nhiều thông tin chi tiết về các danh mục nội dung mới trên YouTube. Hãy kiểm tra các phần mới được cập nhật!</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-section">
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczP6r9-tE9Tubja8qMNkhBSZEB9PLkh_vEYa8IcwsMsz2DGEph1NOx2juWQRrJ76S7iwKVhyBNVpl1BGkNMiWi_ma2pqSGKLF31R6BIriFsjVajjbapAVj_9xAXV6yzVHKJCWHg1FVlQWuHD49MILbQd=w1024-h1024-s-no-gm?authuser=0" alt="Logo" class="footer-logo">
+            <div class="footer-links">
+                <h3>Explore Properties</h3>
+                <a href="#">Fandom</a>
+                <a href="#">Muthead</a>
+                <a href="#">Fanatical</a>
+            </div>
+            <div class="footer-social">
+                <h3>Theo dõi chúng tôi</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Tổng quan | What is Fandom? | Giới thiệu | Tuyển dụng | Báo chí | Liên hệ</p>
+            <p>Điều khoản sử dụng | Chính sách bảo mật | Digital Services Act</p>
+            <p>Sơ đồ web toàn cầu | Sơ đồ web cục bộ</p>
+            <p id="copyright"></p>
+        </div>
+    </footer>
+
+    <script src="js/scripts.js"></script>
+    <script src="js/lang.js"></script>
+    <script src="js/sleep-mode.js"></script>
+    <script src="js/theme.js"></script>
+</body>
+</html>
