@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (lang === 'en') {
                 // Khi chọn tiếng Anh, bỏ phần id ngôn ngữ cũ nếu có
                 newUrl = currentUrl.replace(/\/(vi|es|fr|pt|ru|de|ja|ko|it)(\.html)?$/, ''); // Xóa ngôn ngữ cuối cùng
-                if (newUrl === '' || newUrl === '/' || newUrl === 'indexvi.html') {
+                if (newUrl === '' || newUrl === '/' || newUrl.endsWith('indexvi.html')) {
                     newUrl = 'index.html'; // Chuyển về trang gốc
                 }
             } else {
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (savedLang !== 'en') {
             if (!currentUrl.includes(`/${savedLang}.html`)) {
                 let newUrl;
-                if (currentUrl === '/' || currentUrl === '' || currentUrl.includes('index.html')) {
+                if (currentUrl === '/' || currentUrl === '' || currentUrl.endsWith('index.html')) {
                     newUrl = `index${savedLang}.html`; // Chuyển hướng sang trang ngôn ngữ
                 } else {
                     const baseUrl = currentUrl.replace(/\.html$/, ''); // Loại bỏ .html nếu có
