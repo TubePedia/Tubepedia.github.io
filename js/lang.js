@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
       'en': 'index.html',
       'vi': 'indexvi.html',
     },
-    'about.html': {
-      'en': 'about.html',
-      'vi': 'aboutvi.html',
+    '404.html': {
+      'en': '404.html',
+      'vi': '404.html',
     },
     // Thêm các trang khác tại đây
   };
@@ -33,21 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const lang = navigator.language || navigator.userLanguage; // Dò tìm ngôn ngữ
       const langCode = lang.split('-')[0]; // Lấy mã ngôn ngữ (ví dụ: "vi" từ "vi-VN")
       return langCode;
-    }
-
-    // Hàm dịch văn bản
-    function translateText(text) {
-      const lang = localStorage.getItem('selectedLanguage') || detectLanguage() || 'en';
-      const translations = {
-        'en': {
-          'Please enter search keyword': 'Please enter search keyword'
-        },
-        'vi': {
-          'Please enter search keyword': 'Vui lòng nhập từ khóa tìm kiếm'
-        },
-        // Thêm các ngôn ngữ khác tại đây
-      };
-      return translations[lang][text] || text; // Trả về văn bản gốc nếu không có bản dịch
     }
 
     // Xử lý khi chọn ngôn ngữ
