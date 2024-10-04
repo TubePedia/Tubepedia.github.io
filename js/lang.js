@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const languageUrls = {
     'index.html': {
       'en': 'index.html',
+      'en': '',
       'vi': 'indexvi.html',
     },
     'about.html': {
