@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const languageUrls = {
     'index.html': {
       'en': 'index.html',
-      'en': '',
       'vi': 'indexvi.html',
     },
     'about.html': {
@@ -61,8 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (languageUrls[currentPage] && languageUrls[currentPage][lang]) {
         newUrl = languageUrls[currentPage][lang]; // Lấy URL mới từ đối tượng
       } else {
-        // Nếu không có URL mới, giữ nguyên URL hiện tại
-        newUrl = currentPage;
+        // Nếu không có URL mới, hiển thị thông báo và chuyển ngôn ngữ về tiếng Anh
+        alert('The language for this wiki is not supported or not yet available.');
+        newUrl = languageUrls[currentPage] ? languageUrls[currentPage]['en'] : 'index.html'; // Chuyển về tiếng Anh
       }
 
       // Chuyển hướng
@@ -75,6 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
     languageSelect.value = savedLang;
 
     const currentPage = window.location.pathname.split('/').pop(); // Lấy tên trang hiện tại
+
+    // Điều chỉnh URL nếu không có .html
+    if (!currentPage.endsWith('.html')) {
+      const indexUrl = currentPage === '' || currentPage === 'index' ? 'index.html' : `${currentPage}.html`;
+      window.location.href = indexUrl; // Chuyển hướng đến URL mới
+      return; // Dừng xử lý thêm
+    }
+
     if (savedLang !== 'en') {
       // Chuyển hướng đến ngôn ngữ đã lưu nếu không ở trang đúng
       if (!currentPage.includes(`${savedLang}.html`) && languageUrls[currentPage]) {
