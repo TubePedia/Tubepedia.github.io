@@ -45,10 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (languageUrls[currentPage] && languageUrls[currentPage][lang]) {
         newUrl = languageUrls[currentPage][lang]; // Lấy URL mới từ đối tượng
         localStorage.setItem('selectedLanguage', lang); // Lưu ngôn ngữ đã chọn
+      } else if (lang === 'en') {
+        // Trường hợp quay lại tiếng Anh thì không hiển thị thông báo lỗi
+        newUrl = languageUrls[currentPage]['en'];
+        localStorage.setItem('selectedLanguage', 'en'); // Cập nhật ngôn ngữ trong localStorage
       } else {
-        // Nếu ngôn ngữ không tồn tại, hiển thị thông báo và giữ lại ngôn ngữ hiện tại mà không thay đổi
+        // Nếu không có URL mới cho ngôn ngữ đã chọn, hiển thị thông báo
         alert('The language for this wiki is not supported or not yet available.');
-        return; // Kết thúc sớm, không thực hiện chuyển hướng
+        newUrl = languageUrls[currentPage]['en']; // Chuyển về tiếng Anh
+        localStorage.setItem('selectedLanguage', 'en'); // Đặt lại ngôn ngữ là tiếng Anh
       }
 
       // Chuyển hướng
