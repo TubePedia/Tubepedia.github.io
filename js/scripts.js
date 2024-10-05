@@ -196,9 +196,9 @@ const translations = {
     }
 };
 
-// Lấy ngôn ngữ người dùng
-const userLanguage = navigator.language.split('-')[0]; // Lấy phần đầu của ngôn ngữ, ví dụ: "en" từ "en-US"
-const lang = translations[userLanguage] ? userLanguage : 'en'; // Nếu không có ngôn ngữ thì mặc định là tiếng Anh
+// Lấy ngôn ngữ người dùng cho phần cập nhật cuối cùng
+const currentLanguage = navigator.language.split('-')[0]; // Lấy phần đầu của ngôn ngữ, ví dụ: "en" từ "en-US"
+const lang = translations[currentLanguage] ? currentLanguage : 'en'; // Nếu không có ngôn ngữ thì mặc định là tiếng Anh
 
 // Định dạng thời gian theo quốc gia
 const options = {
