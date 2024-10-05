@@ -62,8 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const newUrl = findPageUrl(currentPage, lang);
       localStorage.setItem('selectedLanguage', lang); // Lưu ngôn ngữ đã chọn
 
-      // Chuyển hướng đến trang mới
-      window.location.href = newUrl;
+      // Kiểm tra xem trang hiện tại đã đúng với URL mới hay chưa, nếu chưa thì chuyển hướng
+      if (newUrl !== window.location.href) {
+        window.location.href = newUrl;
+      }
     });
 
     // Kiểm tra ngôn ngữ đã lưu trong localStorage hoặc dò tìm ngôn ngữ
@@ -79,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return; // Dừng xử lý thêm
     }
 
-    // Chuyển hướng đến trang đúng ngôn ngữ nếu không phải tiếng Anh
+    // Chuyển hướng đến trang đúng ngôn ngữ nếu không phải tiếng Anh và URL hiện tại không khớp
     if (savedLang !== 'en') {
       const newUrl = findPageUrl(currentPage, savedLang);
       if (newUrl !== window.location.href) {
