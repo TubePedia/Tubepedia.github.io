@@ -45,21 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (languageUrls[currentPage] && languageUrls[currentPage][lang]) {
         newUrl = languageUrls[currentPage][lang]; // Lấy URL mới từ đối tượng
         localStorage.setItem('selectedLanguage', lang); // Lưu ngôn ngữ đã chọn
+        window.location.href = newUrl; // Chuyển hướng
       } else {
-        // Nếu không có URL mới
-        if (lang === 'en' && languageUrls[currentPage]) {
-          // Kiểm tra xem có ngôn ngữ tiếng Anh không
-          newUrl = languageUrls[currentPage]['en'];
-          localStorage.setItem('selectedLanguage', 'en'); // Cập nhật ngôn ngữ trong localStorage
-        } else {
-          // Ngược lại, thông báo ngôn ngữ không được hỗ trợ
-          alert(`The language '${lang}' is not supported for this page.`);
-          return; // Dừng lại không chuyển hướng
-        }
+        // Nếu không có URL mới, hiển thị thông báo
+        const availableLanguages = Object.keys(languageUrls[currentPage] || {}).join(', ');
+        alert(`The selected language "${lang}" is not supported for this page. Available languages are: ${availableLanguages}.`);
       }
-
-      // Chuyển hướng
-      window.location.href = newUrl;
     });
 
     // Kiểm tra ngôn ngữ đã lưu trong localStorage hoặc dò tìm ngôn ngữ
