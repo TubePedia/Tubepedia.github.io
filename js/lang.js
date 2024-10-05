@@ -39,6 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
     languageSelect.addEventListener('change', (event) => {
       const lang = event.target.value;
       const currentPage = window.location.pathname.split('/').pop(); // Lấy tên trang hiện tại
+      const savedLang = localStorage.getItem('selectedLanguage');
+
+      // Kiểm tra nếu ngôn ngữ hiện tại là ngôn ngữ đã chọn trước đó để tránh lỗi
+      if (lang === savedLang) {
+        return; // Không cần thay đổi nếu ngôn ngữ đã được chọn trước đó
+      }
+
       let newUrl;
 
       // Kiểm tra nếu có URL cho ngôn ngữ tương ứng
