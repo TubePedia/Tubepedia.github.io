@@ -155,3 +155,92 @@ function updateCopyright() {
 }
 
 updateCopyright();
+
+// Lấy thời gian cập nhật cuối cùng từ document
+const lastUpdated = new Date(document.lastModified);
+
+// Hàm kiểm tra múi giờ người dùng để định dạng giờ 12h hoặc 24h
+function is24HourFormat() {
+    const userLocale = navigator.language || 'en-US'; // Lấy ngôn ngữ của người dùng
+    const region = userLocale.split('-')[1] || 'US'; // Lấy quốc gia
+    const regions24Hour = ['VN', 'FR', 'DE', 'RU', 'CN']; // Các quốc gia sử dụng định dạng 24h
+
+    return regions24Hour.includes(region);
+}
+
+// Định nghĩa bản dịch đa ngôn ngữ
+const translations = {
+    en: {
+        lastUpdated: 'Last updated by admin:',
+        updatedAgo: 'Updated',
+        secondsAgo: 'seconds ago',
+        minutesAgo: 'minutes ago',
+        hoursAgo: 'hours ago',
+        daysAgo: 'days ago'
+    },
+    vi: {
+        lastUpdated: 'Cập nhật lần cuối bởi quản trị viên:',
+        updatedAgo: 'Cập nhật cách đây',
+        secondsAgo: 'vài giây trước',
+        minutesAgo: 'phút trước',
+        hoursAgo: 'giờ trước',
+        daysAgo: 'ngày trước'
+    },
+    fr: {
+        lastUpdated: 'Dernière mise à jour par l\'admin:',
+        updatedAgo: 'Mis à jour il y a',
+        secondsAgo: 'secondes',
+        minutesAgo: 'minutes',
+        hoursAgo: 'heures',
+        daysAgo: 'jours'
+    }
+};
+
+// Lấy ngôn ngữ người dùng
+const userLanguage = navigator.language.split('-')[0]; // Lấy phần đầu của ngôn ngữ, ví dụ: "en" từ "en-US"
+const lang = translations[userLanguage] ? userLanguage : 'en'; // Nếu không có ngôn ngữ thì mặc định là tiếng Anh
+
+// Định dạng thời gian theo quốc gia
+const options = {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: !is24HourFormat(), // Sử dụng 24h hay 12h dựa trên quốc gia
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric'
+};
+
+// Chuyển đổi thành chuỗi theo định dạng
+const formattedDate = lastUpdated.toLocaleString(navigator.language, options);
+
+// Tính thời gian hiện tại trừ thời gian cập nhật cuối
+function timeSinceLastUpdate(lastUpdate) {
+    const now = new Date();
+    const timeDiff = now - lastUpdate;
+    const seconds = Math.floor(timeDiff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 0) {
+        return `${days} ${translations[lang].daysAgo}`;
+    } else if (hours > 0) {
+        return `${hours} ${translations[lang].hoursAgo}`;
+    } else if (minutes > 0) {
+        return `${minutes} ${translations[lang].minutesAgo}`;
+    } else {
+        return `${translations[lang].secondsAgo}`;
+    }
+}
+
+// Chèn vào phần tử HTML khi trang tải
+document.addEventListener("DOMContentLoaded", function() {
+    const updateElement = document.getElementById('last-update');
+    const timePassedElement = document.getElementById('time-passed');
+
+    // Hiển thị thời gian cập nhật cuối cùng
+    updateElement.textContent = `${translations[lang].lastUpdated} ${formattedDate}`;
+
+    // Hiển thị thời gian đã trôi qua từ lần cập nhật cuối
+    timePassedElement.textContent = `${translations[lang].updatedAgo}: ${timeSinceLastUpdate(lastUpdated)}`;
+});
