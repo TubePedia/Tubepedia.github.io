@@ -53,11 +53,18 @@ document.addEventListener('DOMContentLoaded', () => {
           window.location.href = newUrl;
         }
       } else {
-        // Nếu không có URL cho ngôn ngữ được chọn, đặt lại về tiếng Anh
-        alert(`The selected language "${lang}" is not supported. Defaulting to English.`);
-        languageSelect.value = 'en'; // Chọn lại tiếng Anh trong dropdown
-        localStorage.setItem('selectedLanguage', 'en'); // Lưu ngôn ngữ thành tiếng Anh
-        window.location.href = languageUrls[currentPage]['en']; // Chuyển hướng về trang tiếng Anh
+        // Nếu không có URL cho ngôn ngữ được chọn, kiểm tra xem có lưu ngôn ngữ trước đó không
+        const defaultLang = 'en'; // Mặc định về tiếng Anh
+
+        if (languageUrls[currentPage][defaultLang]) {
+          alert(`The selected language "${lang}" is not supported. Defaulting to English.`);
+          languageSelect.value = defaultLang; // Chọn lại tiếng Anh trong dropdown
+          localStorage.setItem('selectedLanguage', defaultLang); // Lưu ngôn ngữ thành tiếng Anh
+          window.location.href = languageUrls[currentPage][defaultLang]; // Chuyển hướng về trang tiếng Anh
+        } else {
+          // Nếu không có URL cho cả tiếng Anh, hiển thị thông báo
+          alert(`No language available for the current page.`);
+        }
       }
     });
 
