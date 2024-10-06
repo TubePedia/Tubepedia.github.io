@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'index.html': {
       'en': 'index.html',
       'vi': 'indexvi.html',
+      'ko': 'indexko.html',
     },
     'about.html': {
       'en': 'about.html',
