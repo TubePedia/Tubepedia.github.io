@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Kiểm tra xem ngôn ngữ có được lưu trong localStorage không
     const savedLanguage = localStorage.getItem("lang");
     if (savedLanguage) {
+        languageSelect.value = savedLanguage; // Hiển thị ngôn ngữ đã lưu trong select
         redirectToLanguage(savedLanguage);
     } else {
         // Dò tìm ngôn ngữ trình duyệt và tự động chuyển hướng
@@ -32,12 +33,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Hàm để chuyển hướng đến trang ngôn ngữ tương ứng
     function redirectToLanguage(lang) {
-        const currentPage = window.location.pathname.split("/").pop(); // Lấy tên trang hiện tại (vd: index.html)
-        if (supportedLanguages[currentPage] && supportedLanguages[currentPage][lang]) {
-            const targetPage = supportedLanguages[currentPage][lang];
-            if (currentPage !== targetPage) {
+        const currentPath = window.location.pathname; // Lấy đường dẫn hiện tại
+        const currentPage = currentPath.split("/").pop(); // Lấy tên trang hiện tại (vd: index.html)
+
+        // Kiểm tra nếu URL không có .html
+        const cleanCurrentPage = currentPage.endsWith('.html') ? currentPage : currentPage || 'index.html';
+
+        if (supportedLanguages[cleanCurrentPage] && supportedLanguages[cleanCurrentPage][lang]) {
+            const targetPage = supportedLanguages[cleanCurrentPage][lang];
+            if (cleanCurrentPage !== targetPage) {
                 window.location.href = targetPage;
             }
         }
+    }
+
+    // Kiểm tra xem trang có đường dẫn gốc không có '.html' hay không
+    if (!window.location.pathname.endsWith('.html') && window.location.pathname !== '/') {
+        redirectToLanguage(savedLanguage || 'en'); // Chọn ngôn ngữ đã lưu hoặc mặc định là 'en'
     }
 });
