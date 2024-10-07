@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const savedLanguage = localStorage.getItem("lang");
     if (savedLanguage) {
         languageSelect.value = savedLanguage; // Hiển thị ngôn ngữ đã lưu trong select
+        // Chỉ định chuyển hướng đến ngôn ngữ đã lưu khi tải trang
         redirectToLanguage(savedLanguage);
     } else {
         // Dò tìm ngôn ngữ trình duyệt và tự động chuyển hướng
@@ -42,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (supportedLanguages[cleanCurrentPage] && supportedLanguages[cleanCurrentPage][lang]) {
             const targetPage = supportedLanguages[cleanCurrentPage][lang];
             if (cleanCurrentPage !== targetPage) {
+                // Chuyển hướng đến trang ngôn ngữ tương ứng
                 window.location.href = targetPage;
             }
         }
