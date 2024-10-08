@@ -447,6 +447,100 @@ window.onload = function() {
         overlay.style.display = "flex";
     }
 };
+
+    // Đếm ngược thời gian cho 10 giây
+    let timeoutID;
+    function startTimeout() {
+        timeoutID = setTimeout(function () {
+            overlay.style.display = "flex";
+            document.getElementById("timeout-message").style.display = "block";
+        }, 10000); // 10 giây
+    }
+
+    // Bắt đầu đếm ngược
+    startTimeout();
+
+// Xử lý khi checkbox được tick
+document.getElementById("captcha-checkbox").addEventListener("change", function () {
+    if (this.checked) {
+        document.getElementById("processing-message").style.display = "block";
+        overlay.querySelector("div").style.pointerEvents = "none";
+
+        // Giả lập xác thực (Thay đổi logic này theo cách xác thực thực tế của bạn)
+        const isAuthenticated = Math.random() < 0.7; // Giả sử 70% thành công
+
+        setTimeout(function () {
+            if (isAuthenticated) {
+                // Nếu xác thực thành công
+                document.getElementById("processing-message").innerHTML = translations[langCode].authenticationSuccess;
+                document.getElementById("processing-message").style.color = "green"; // Màu xanh lá
+                localStorage.setItem("captchaPassed", "true");
+                localStorage.setItem("lastVerified", new Date());
+
+                // Đặt timeout để hiển thị thông báo thành công sau 1 giây
+                setTimeout(() => {
+                    document.getElementById("processing-message").innerHTML = translations[langCode].authenticationConfirmed; // Sử dụng từ ngữ từ ngôn ngữ đã có
+                    
+                    // Ẩn thông báo sau 1 giây
+                    setTimeout(() => {
+                        document.getElementById("processing-message").style.display = "none"; // Ẩn thông báo
+                        document.getElementById("captcha-checkbox").checked = true; // Tick lại ô checkbox
+                        document.getElementById("captcha-checkbox").disabled = true; // Không cho phép tick lại
+                        overlay.style.display = "none"; // Ẩn overlay
+
+                        // Cho phép xác thực lại sau 10 giây
+                        setTimeout(() => {
+                            document.getElementById("captcha-checkbox").disabled = false; // Cho phép tick lại
+                            document.getElementById("captcha-checkbox").checked = false; // Reset checkbox
+                        }, 10000); // 10 giây
+                    }, 1000); // 1 giây
+
+                }, 2000); // 2 giây delay
+            } else {
+                // Nếu xác thực không thành công
+                document.getElementById("processing-message").innerHTML = translations[langCode].authenticationFailed;
+                document.getElementById("processing-message").style.color = "red"; // Màu đỏ
+                overlay.querySelector("div").style.pointerEvents = "auto"; // Cho phép tick lại
+                
+                // Reset dấu tick
+                document.getElementById("captcha-checkbox").checked = false; // Reset checkbox
+            }
+        }, 2000); // 2 giây delay
+    }
+});	
+
+// Đoạn mã sau đây kiểm tra trạng thái khi trang được tải lại
+window.onload = function() {
+    // Kiểm tra nếu đã xác thực
+    if (localStorage.getItem("captchaPassed") === "true") {
+        document.getElementById("captcha-checkbox").checked = true; // Đánh dấu checkbox là checked
+        document.getElementById("captcha-checkbox").disabled = true; // Khóa không cho tick lại
+        document.getElementById("processing-message").innerHTML = translations[langCode].authenticationConfirmed; // Hiển thị thông báo đã xác thực
+        document.getElementById("processing-message").style.color = "green"; // Màu xanh lá
+        document.getElementById("processing-message").style.display = "block"; // Hiển thị thông báo
+        overlay.style.display = "none"; // Ẩn overlay
+    }
+};
+
+    // Kiểm tra nếu đã xác thực trước đó
+    window.onload = function () {
+        if (localStorage.getItem("captchaPassed") !== "true") {
+            overlay.style.display = "flex";
+        } else {
+            overlay.style.display = "none";
+        }
+    };
+
+    // Theo dõi hoạt động của người dùng
+    document.addEventListener('mousemove', resetTimeout);
+    document.addEventListener('keydown', resetTimeout);
+
+    function resetTimeout() {
+        clearTimeout(timeoutID);
+        startTimeout();
+        document.getElementById("timeout-message").style.display = "none";
+    }
+})();
 </script>
 </body>
 </html>
