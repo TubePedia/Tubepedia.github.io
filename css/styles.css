@@ -27,6 +27,10 @@ hr {
 .text {
     margin: 10px 0;
 }
+.terms {
+            display: none;
+            margin-top: 20px;
+        }
 
 .header {
     background-color: #ff4081;
@@ -120,66 +124,52 @@ nav ul li:last-child {
     margin-left: 10%; /* Khoảng cách nội dung chính bên phải .nav */
 }
 
+/* Footer styles */
 .footer {
-    background-color: #6200ea;
-    color: white;
-    width: 100%;
-    margin-left: 0%; /* Khoảng cách nội dung chính bên phải .nav */
-    height: 40vh;
+    background-color: #6200ea; /* Màu nền */
+    color: white; /* Màu chữ */
+    padding: 20px; /* Khoảng cách bên trong */
+    position: relative; /* Đặt vị trí tương đối */
+    bottom: 0; /* Đặt footer ở cuối */
+    left: -20;
+    width: 90%; /* Chiều rộng đầy đủ */
 }
 
 .footer-section {
-    display: flex;
-    justify-content: space-around;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ffffff;
-    width: 100%;
+    display: flex; /* Sử dụng flexbox để sắp xếp các phần tử */
+    justify-content: space-between; /* Căn giữa các phần tử */
+    align-items: flex-start; /* Căn chỉnh các phần tử theo chiều dọc */
 }
 
 .footer-logo {
-    width: 100px; /* Đặt chiều rộng */
-    height: 75px; /* Đặt chiều cao */
+    width: 100px; /* Độ rộng của logo */
+    margin-right: 20px; /* Khoảng cách bên phải của logo */
 }
 
 .footer-links, .footer-social {
-    text-align: left;
+    margin: 0 20px; /* Khoảng cách giữa các phần */
 }
 
 .footer-links h3, .footer-social h3 {
-    margin-bottom: 10px;
-    color: #ffcc80;
+    margin-bottom: 10px; /* Khoảng cách dưới tiêu đề */
 }
 
-.footer-links a, .footer-social a {
-    display: block;
-    color: #ffffff;
-    text-decoration: none;
-    margin-bottom: 5px;
+.footer a {
+    color: white; /* Màu chữ cho các liên kết */
+    text-decoration: none; /* Bỏ gạch chân */
+}
+
+.footer a:hover {
+    text-decoration: underline; /* Hiệu ứng gạch chân khi hover */
 }
 
 .footer-bottom {
-    margin-top: 20px;
-  display: flex;
-  justify-content: center; /* Căn giữa theo chiều ngang */
-  align-items: center;     /* Căn giữa theo chiều dọc */
-  height: 15vh;           /* Chiều cao của khối bao quanh */
-  display: flex;
-  flex-direction: column; /* Đặt các phần tử con theo chiều dọc */
-  align-items: center;    /* Căn giữa theo chiều ngang */
-  height: 10vh;          /* Chiều cao toàn màn hình */
+    margin-top: 20px; /* Khoảng cách trên */
+    text-align: center; /* Căn giữa nội dung */
 }
 
-.footer-bottom p {
-    margin: 2px 10;
-    font-size: 12px;
-    color: #cccccc;
-    display: flex;
-    display: flex;
-  flex-direction: column; /* Đặt các phần tử con theo chiều dọc */
-  align-items: center;    /* Căn giữa theo chiều ngang */
-  height: 100vh;          /* Chiều cao toàn màn hình */
-  justify-content: center; /* Căn giữa theo chiều dọc */
-}
+#copyright {
+    margin-top: 10px; /* Khoảng cách trên cho copyright */
 }
 
 h2, h3 {
@@ -237,7 +227,6 @@ body.dark-mode .search-bar input[type="text"] {
     border-radius: 4px;
     font-size: 16px;
     background-color: #000;
-    color: white;
 }
 .search-bar button {
     padding: 10px 20px;
@@ -277,13 +266,6 @@ body.dark-mode .search-results {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    color: black;
-}
-body.dark-mode .search-results ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    color: white;
 }
 
 .search-results ul li {
