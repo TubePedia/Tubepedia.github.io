@@ -65,12 +65,12 @@
             <option value="light">Light Mode</option>
         </select>
     </div>
-<div class="popup" id="popup">
-        <h3 id="popupTitle"></h3>
-        <hr>
-        <p id="safetyMessage">Checking safety...</p>
-        <a href="#" id="openLink">Open link</a>
-        <button id="copyLink">Copy link</button>
+<div class="overlay" id="overlay"></div> <!-- Thêm lớp overlay -->
+    <div class="linkpopup" id="linkPopup">
+        <p><strong>URL:</strong> <span id="popupUrl"></span></p>
+        <p><strong>Liên kết:</strong> <span id="linkSafety"></span></p>
+        <button id="openLink">Mở liên kết</button>
+        <button id="copyLink">Sao chép liên kết</button>
     </div>
     <div class="font-size-selector">
     <label for="font-size">Font Size:</label>
