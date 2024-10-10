@@ -244,22 +244,22 @@ document.addEventListener("DOMContentLoaded", function() {
     // Hiển thị thời gian đã trôi qua từ lần cập nhật cuối
     timePassedElement.textContent = `${translations[lang].updatedAgo}: ${timeSinceLastUpdate(lastUpdated)}`;
 });
-
 document.addEventListener("DOMContentLoaded", function() {
-            const link = document.querySelector(".link");
-            const popup = document.getElementById("popup");
-            const safetyMessage = document.getElementById("safetyMessage");
-            const openLink = document.getElementById("openLink");
-            const copyLink = document.getElementById("copyLink");
-            const popupTitle = document.getElementById("popupTitle");
+    const links = document.querySelectorAll(".link"); // Lấy tất cả các liên kết
+    const popup = document.getElementById("popup");
+    const safetyMessage = document.getElementById("safetyMessage");
+    const openLink = document.getElementById("openLink");
+    const copyLink = document.getElementById("copyLink");
+    const popupTitle = document.getElementById("popupTitle");
 
-            // Danh sách các trang web uy tín
+    // Danh sách các trang web uy tín
             const trustedSites = [
                 "example.com",
                 "google.com",
                 "wikipedia.org",
                 "github.com",
                 "youtube.com",
+                "youtu.be",
                 "facebook.com",
                 "instagram.com",
                 "twitter.com",
@@ -305,11 +305,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 "tubepedia.github.io"
             ];
 
-            // Tự động chọn ngôn ngữ dựa trên ngôn ngữ trình duyệt
-            const userLang = navigator.language || navigator.userLanguage;
+    // Tự động chọn ngôn ngữ dựa trên ngôn ngữ trình duyệt
+    const userLang = navigator.language || navigator.userLanguage;
 
-            // Đối tượng ngôn ngữ
-            const translations = {
+    // Đối tượng ngôn ngữ
+               const translations = {
                 "en": {
                     "checkingSafety": "Checking safety...",
                     "safe": "This link is safe.",
@@ -400,71 +400,74 @@ document.addEventListener("DOMContentLoaded", function() {
 }
             };
 
-            // Chọn ngôn ngữ dựa trên ngôn ngữ trình duyệt, mặc định là tiếng Anh
-            const lang = translations[
-    userLang.includes("vi") ? "vi" :
-    userLang.includes("es") ? "es" :
-    userLang.includes("fr") ? "fr" :
-    userLang.includes("pt") ? "pt" :
-    userLang.includes("ru") ? "ru" :
-    userLang.includes("de") ? "de" :
-    userLang.includes("ja") ? "ja" :
-    userLang.includes("ko") ? "ko" :
-    userLang.includes("it") ? "it" :
-    userLang.includes("ar") ? "ar" :
-    "en"
-];
+    // Chọn ngôn ngữ dựa trên ngôn ngữ trình duyệt, mặc định là tiếng Anh
+    const lang = translations[
+        userLang.includes("vi") ? "vi" :
+        userLang.includes("es") ? "es" :
+        userLang.includes("fr") ? "fr" :
+        userLang.includes("pt") ? "pt" :
+        userLang.includes("ru") ? "ru" :
+        userLang.includes("de") ? "de" :
+        userLang.includes("ja") ? "ja" :
+        userLang.includes("ko") ? "ko" :
+        userLang.includes("it") ? "it" :
+        userLang.includes("ar") ? "ar" :
+        "en"
+    ];
 
-            // Cập nhật văn bản dựa trên ngôn ngữ đã chọn
-            safetyMessage.textContent = lang.checkingSafety;
-            openLink.textContent = lang.openLink;
-            copyLink.textContent = lang.copyLink;
+    // Cập nhật văn bản dựa trên ngôn ngữ đã chọn
+    safetyMessage.textContent = lang.checkingSafety;
+    openLink.textContent = lang.openLink;
+    copyLink.textContent = lang.copyLink;
 
-            link.addEventListener("click", function(event) {
-                event.preventDefault();
-                const url = link.getAttribute("data-url");
+    // Thêm sự kiện click cho từng liên kết
+    links.forEach(link => {
+        link.addEventListener("click", function(event) {
+            event.preventDefault();
+            const url = link.getAttribute("data-url");
 
-                // Hiển thị popup tại vị trí của liên kết
-                const rect = link.getBoundingClientRect();
-                popup.style.top = rect.bottom + "px";
-                popup.style.left = rect.left + "px";
-                popup.style.display = "block";
+            // Hiển thị popup tại vị trí của liên kết
+            const rect = link.getBoundingClientRect();
+            popup.style.top = rect.bottom + "px";
+            popup.style.left = rect.left + "px";
+            popup.style.display = "block";
 
-                // Cập nhật tiêu đề với tên miền
-                const domain = new URL(url).hostname; // Lấy tên miền từ URL
-                popupTitle.textContent = domain + "/"; // Cập nhật tiêu đề
+            // Cập nhật tiêu đề với tên miền
+            const domain = new URL(url).hostname; // Lấy tên miền từ URL
+            popupTitle.textContent = domain + "/"; // Cập nhật tiêu đề
 
-                // Cập nhật hành động cho các nút
-                openLink.href = url;
+            // Cập nhật hành động cho các nút
+            openLink.href = url;
 
-                // Kiểm tra an toàn liên kết
-                checkLinkSafety(url);
-                
-                copyLink.onclick = function() {
-                    navigator.clipboard.writeText(url);
-                    alert(lang.copied);
-                };
-            });
+            // Kiểm tra an toàn liên kết
+            checkLinkSafety(url);
 
-            // Hàm kiểm tra an toàn liên kết dựa trên danh sách các URL uy tín
-            function checkLinkSafety(url) {
-                const isSafe = trustedSites.some(trustedSite => url.includes(trustedSite));
-
-                if (isSafe) {
-                    safetyMessage.textContent = lang.safe;
-                    safetyMessage.classList.add("safe");
-                    safetyMessage.classList.remove("unsafe");
-                } else {
-                    safetyMessage.textContent = lang.unsafe;
-                    safetyMessage.classList.add("unsafe");
-                    safetyMessage.classList.remove("safe");
-                }
-            }
-
-            // Đóng popup khi nhấp bên ngoài
-            document.addEventListener("click", function(event) {
-                if (!popup.contains(event.target) && event.target !== link) {
-                    popup.style.display = "none";
-                }
-            });
+            copyLink.onclick = function() {
+                navigator.clipboard.writeText(url);
+                alert(lang.copied);
+            };
         });
+    });
+
+    // Hàm kiểm tra an toàn liên kết dựa trên danh sách các URL uy tín
+    function checkLinkSafety(url) {
+        const isSafe = trustedSites.some(trustedSite => url.includes(trustedSite));
+
+        if (isSafe) {
+            safetyMessage.textContent = lang.safe;
+            safetyMessage.classList.add("safe");
+            safetyMessage.classList.remove("unsafe");
+        } else {
+            safetyMessage.textContent = lang.unsafe;
+            safetyMessage.classList.add("unsafe");
+            safetyMessage.classList.remove("safe");
+        }
+    }
+
+    // Đóng popup khi nhấp bên ngoài
+    document.addEventListener("click", function(event) {
+        if (!popup.contains(event.target) && !Array.from(links).includes(event.target)) {
+            popup.style.display = "none";
+        }
+    });
+});
