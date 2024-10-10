@@ -560,3 +560,44 @@ button.prev {
 button.next {
     right: 10px;
 }
+        .popup {
+            display: none;
+            position: absolute;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            width: 200px;
+        }
+
+        .popup h3 {
+            margin: 0 0 10px;
+        }
+
+        .popup p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .popup a, .popup button {
+            cursor: pointer;
+            text-decoration: none;
+            color: blue;
+            margin-right: 10px;
+        }
+
+        .popup button {
+            background: none;
+            border: none;
+            color: blue;
+            text-decoration: underline;
+        }
+
+        .safe {
+            color: green;
+        }
+
+        .unsafe {
+            color: red;
+        }
