@@ -244,95 +244,57 @@ document.addEventListener("DOMContentLoaded", function() {
     // Hiển thị thời gian đã trôi qua từ lần cập nhật cuối
     timePassedElement.textContent = `${translations[lang].updatedAgo}: ${timeSinceLastUpdate(lastUpdated)}`;
 });
-document.addEventListener("DOMContentLoaded", function() {
-    const links = document.querySelectorAll(".link"); // Lấy tất cả các liên kết
-    const popup = document.getElementById("popup");
-    const safetyMessage = document.getElementById("safetyMessage");
-    const openLink = document.getElementById("openLink");
-    const copyLink = document.getElementById("copyLink");
-    const popupTitle = document.getElementById("popupTitle");
+const trustedSites = [
+            "example.com", "google.com", "wikipedia.org", "github.com",
+            "youtube.com", "youtu.be", "facebook.com", "instagram.com",
+            "twitter.com", "x.com", "linkedin.com", "tiktok.com",
+            "pinterest.com", "snapchat.com", "reddit.com", "tumblr.com",
+            "whatsapp.com", "discord.com", "wechat.com", "vimeo.com",
+            "quora.com", "chatgpt.com", "openai.com", "ai.google",
+            "microsoft.com/en-us/ai", "ibm.com/watson", "huggingface.co",
+            "deepmind.com", "chat.openai.com", "nvidia.com/en-us/deep-learning-ai",
+            "c3.ai", "aidungeon.io", "runwayml.com", "lattice.ai",
+            "fandom.com", "mail.google.com", "drive.google.com", "docs.google.com",
+            "sheets.google.com", "slides.google.com", "calendar.google.com",
+            "maps.google.com", "photos.google.com", "keep.google.com",
+            "meet.google.com", "play.google.com", "tubepedia.github.io"
+        ];
 
-    // Danh sách các trang web uy tín
-    const trustedSites = [
-        // ... (giữ nguyên danh sách các trang uy tín)
-    ];
+        const links = document.querySelectorAll('.link');
+        const linkPopup = document.getElementById('linkPopup');
+        const overlay = document.getElementById('overlay');
+        const popupUrl = document.getElementById('popupUrl');
+        const linkSafety = document.getElementById('linkSafety');
+        const openLinkButton = document.getElementById('openLink');
+        const copyLinkButton = document.getElementById('copyLink');
 
-    // Tự động chọn ngôn ngữ dựa trên ngôn ngữ trình duyệt
-    const userLang = navigator.language || navigator.userLanguage;
+        links.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const url = this.getAttribute('data-url');
+                const isTrusted = trustedSites.some(site => url.includes(site));
 
-    // Đối tượng ngôn ngữ
-    const translations = {
-        // ... (giữ nguyên đối tượng ngôn ngữ)
-    };
+                popupUrl.textContent = url;
+                linkSafety.textContent = isTrusted ? 'An toàn' : 'Nguy hiểm';
+                linkPopup.style.display = 'block';
+                overlay.style.display = 'block'; // Hiện overlay
 
-    // Chọn ngôn ngữ dựa trên ngôn ngữ trình duyệt, mặc định là tiếng Anh
-    const lang = translations[
-        userLang.includes("vi") ? "vi" :
-        userLang.includes("es") ? "es" :
-        userLang.includes("fr") ? "fr" :
-        userLang.includes("pt") ? "pt" :
-        userLang.includes("ru") ? "ru" :
-        userLang.includes("de") ? "de" :
-        userLang.includes("ja") ? "ja" :
-        userLang.includes("ko") ? "ko" :
-        userLang.includes("it") ? "it" :
-        userLang.includes("ar") ? "ar" :
-        "en"
-    ];
+                openLinkButton.onclick = () => {
+                    window.open(url, '_blank');
+                    linkPopup.style.display = 'none';
+                    overlay.style.display = 'none'; // Ẩn overlay khi mở liên kết
+                };
 
-    // Cập nhật văn bản dựa trên ngôn ngữ đã chọn
-    safetyMessage.textContent = lang.checkingSafety;
-    openLink.textContent = lang.openLink;
-    copyLink.textContent = lang.copyLink;
-
-    // Thêm sự kiện click cho từng liên kết
-    links.forEach(link => {
-        link.addEventListener("click", function(event) {
-            event.preventDefault();
-            const url = link.getAttribute("data-url");
-
-            // Hiển thị popup tại vị trí của liên kết
-            const rect = link.getBoundingClientRect();
-            popup.style.top = rect.bottom + "px";
-            popup.style.left = rect.left + "px";
-            popup.style.display = "block";
-
-            // Cập nhật tiêu đề với tên miền
-            const domain = new URL(url).hostname; // Lấy tên miền từ URL
-            popupTitle.textContent = domain + "/"; // Cập nhật tiêu đề
-
-            // Cập nhật hành động cho các nút
-            openLink.href = url;
-
-            // Kiểm tra an toàn liên kết
-            checkLinkSafety(url);
-
-            copyLink.onclick = function() {
-                navigator.clipboard.writeText(url);
-                alert(lang.copied);
-            };
+                copyLinkButton.onclick = () => {
+                    navigator.clipboard.writeText(url).then(() => {
+                        alert('Liên kết đã được sao chép!');
+                    });
+                };
+            });
         });
-    });
 
-    // Hàm kiểm tra an toàn liên kết dựa trên danh sách các URL uy tín
-    function checkLinkSafety(url) {
-        const isSafe = trustedSites.some(trustedSite => url.includes(trustedSite));
-
-        if (isSafe) {
-            safetyMessage.textContent = lang.safe;
-            safetyMessage.classList.add("safe");
-            safetyMessage.classList.remove("unsafe");
-        } else {
-            safetyMessage.textContent = lang.unsafe;
-            safetyMessage.classList.add("unsafe");
-            safetyMessage.classList.remove("safe");
-        }
-    }
-
-    // Đóng popup khi nhấp bên ngoài
-    document.addEventListener("click", function(event) {
-        if (!popup.contains(event.target) && !Array.from(links).includes(event.target)) {
-            popup.style.display = "none";
-        }
-    });
-});
+        // Đóng popup và overlay khi nhấp ra ngoài
+        overlay.onclick = () => {
+            linkPopup.style.display = 'none';
+            overlay.style.display = 'none';
+        };
