@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Storage Tool</title>
+    <script>
+        window.onload = function() {
+            const currentUrl = window.location.href;
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Kiểm tra xem có tham số status=true không
+            if (!urlParams.has('status') || urlParams.get('status') !== 'true') {
+                const authUrl = `https://vinygamer124.github.io/authentication?url=${encodeURIComponent(currentUrl)}&status=false`;
+                window.location.href = authUrl; // Chuyển hướng đến trang xác thực
+            } else {
+                // Nếu đã xác thực, bạn có thể thực hiện hành động khác hoặc hiển thị nội dung trang
+            }
+        };
+    </script>
     <style>
     	/* Reset các thuộc tính mặc định */
 * {
