@@ -638,4 +638,112 @@ function loadStoredData() {
 // Xóa email và mật khẩu
 function deleteData(index) {
     let storedData = JSON.parse(localStorage.getItem('storage_' + username)) || [];
-    store
+    storedData.splice(index, 1);
+    localStorage.setItem('storage_' + username, JSON.stringify(storedData));
+    loadStoredData(); // Tải lại dữ liệu sau khi xóa
+}
+
+// Chỉnh sửa email và mật khẩu
+function editData(index) {
+    let storedData = JSON.parse(localStorage.getItem('storage_' + username)) || [];
+    const newEmail = prompt('Enter the new email:', decrypt(storedData[index].email));
+    const newPassword = prompt('Enter the new password:', decrypt(storedData[index].password));
+
+    if (newEmail && newPassword) {
+        storedData[index].email = encrypt(newEmail);
+        storedData[index].password = encrypt(newPassword);
+        localStorage.setItem('storage_' + username, JSON.stringify(storedData));
+        loadStoredData(); // Tải lại dữ liệu sau khi chỉnh sửa
+    }
+}
+function validateStoragePassword() {
+    const enteredPassword = prompt('Please enter your storage password:');
+    const storedPassword = decrypt(localStorage.getItem('storagePassword_' + username));
+
+    if (enteredPassword === storedPassword) {
+        loadFiles();
+        document.getElementById('storageSection').style.display = 'block'; // Hiển thị phần quản lý email và mật khẩu
+    } else {
+        alert('Incorrect storage password');
+    }
+}
+function addEmailPassword() {
+    const email = prompt('Enter the email:');
+    const username = prompt('Enter the username:');
+    const accountPassword = prompt('Enter the account password:');
+    let password = prompt('Enter the password (or leave blank to generate one):');
+    if (!password) {
+        password = generatePassword();
+        alert(`Generated password: ${password}`);
+    }
+
+    if (email && username && accountPassword && password) {
+        const encryptedEmail = encrypt(email);
+        const encryptedUsername = encrypt(username);
+        const encryptedAccountPassword = encrypt(accountPassword);
+        const encryptedPassword = encrypt(password);
+}
+}
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+let currentImageIndex = 0;
+let images = [];
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Chọn tất cả các ảnh trong main-content, nhưng bỏ qua ảnh trong footer nếu footer nằm bên ngoài main-content
+    const mainContent = document.querySelector(".main-content");
+    const imgElements = mainContent.querySelectorAll("img:not(.footer img)"); 
+    images = Array.from(imgElements); // Chuyển đổi NodeList thành Array
+
+    images.forEach((img, index) => {
+        img.addEventListener("click", () => {
+            openModal(index); // Mở modal với chỉ số ảnh được nhấn
+        });
+
+        img.onerror = function() {
+            img.alt = "Lỗi ảnh"; // Thay thế bằng văn bản lỗi
+        };
+    });
+});
+
+function openModal(index) {
+    const modal = document.getElementById("imageModal");
+    const modalImage = document.getElementById("modalImage");
+    const caption = document.querySelector(".caption");
+
+    currentImageIndex = index; // Cập nhật chỉ số ảnh hiện tại
+    modal.style.display = "flex"; // Hiển thị modal theo kiểu flex để căn giữa
+    modalImage.src = images[currentImageIndex].src; // Đặt nguồn ảnh cho modal
+    caption.textContent = images[currentImageIndex].alt || ""; // Hiển thị caption
+}
+
+function closeModal() {
+    const modal = document.getElementById("imageModal");
+    modal.style.display = "none"; // Ẩn modal
+}
+
+function changeImage(n) {
+    currentImageIndex += n; // Thay đổi chỉ số ảnh
+    if (currentImageIndex >= images.length) {
+        currentImageIndex = 0; // Quay về đầu danh sách
+    } else if (currentImageIndex < 0) {
+        currentImageIndex = images.length - 1; // Quay về cuối danh sách
+    }
+    openModal(currentImageIndex); // Mở modal với ảnh mới
+}
+
+// Đóng modal khi nhấn vào dấu "x"
+document.querySelector(".close").onclick = closeModal;
+
+// Đóng modal khi nhấn ra ngoài ảnh
+window.onclick = function(event) {
+    const modal = document.getElementById("imageModal");
+    if (event.target === modal) {
+        closeModal();
+    }
+};
+</script>
+</body>
+</html>
