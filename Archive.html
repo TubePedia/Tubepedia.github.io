@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Storage Tool</title>
+    <style>
+    	/* Reset các thuộc tính mặc định */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Thiết lập font chữ */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Khung chính */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tiêu đề */
+h1, h2 {
+    text-align: center;
+    color: #007BFF; /* Màu xanh cho tiêu đề */
+}
+
+/* Khung nhập liệu */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Nút */
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    background-color: #007BFF; /* Màu xanh cho nút */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Hiệu ứng hover cho nút */
+button:hover {
+    background-color: #0056b3; /* Màu xanh đậm hơn khi hover */
+}
+
+/* Phần thông báo */
+.alert {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Khung chứa file */
+.file-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.file-item {
+    background-color: #e9ecef;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Nút xóa file */
+.delete-button {
+    background-color: #dc3545; /* Màu đỏ */
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #c82333; /* Đậm hơn khi hover */
+}
+button, a {
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover, a:hover {
+    background-color: #007BFF; /* Màu nền khi hover */
+    color: white; /* Màu chữ khi hover */
+    transform: scale(1.05); /* Phóng to một chút khi hover */
+}
+input[type="text"], input[type="password"] {
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border: 2px solid #007BFF; /* Đổi màu biên khi focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Hiệu ứng bóng */
+}
+#login-container, #register-container {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#login-container.hidden, #register-container.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+.modal {
+    display: none; /* Ẩn popup mặc định */
+    position: fixed;
+    z-index: 999;
+    left: 30px;
+    top: 0;
+    width: 90%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8); /* Nền mờ */
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.caption {
+    text-align: center;
+    color: white;
+    margin-top: 10px;
+}
+
+button.prev, button.next {
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+button.prev {
+    left: 10px;
+}
+
+button.next {
+    right: 10px;
+}
+/* From Uiverse.io by nathann09 */ 
+.form {
+  background-color: #fff;
+  display: block;
+  padding: 1rem;
+  max-width: 350px;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.form-title {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: #000;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container input, .form button {
+  outline: none;
+  border: 1px solid #e5e7eb;
+  margin: 8px 0;
+}
+
+.input-container input {
+  background-color: #fff;
+  padding: 1rem;
+  padding-right: 3rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  width: 300px;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.submit {
+  display: block;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  background-color: #4F46E5;
+  color: #ffffff;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  width: 100%;
+  border-radius: 0.5rem;
+  text-transform: uppercase;
+}
+
+.signup-link {
+  color: #6B7280;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: center;
+}
+
+.signup-link a {
+  text-decoration: underline;
+}
+/* Tùy chỉnh giao diện cho phần tải file */
+.file-upload {
+    position: relative;
+    display: inline-block;
+    width: 250px;
+}
+
+.file-input {
+    width: 100%;
+    height: 45px;
+    opacity: 0; /* Ẩn phần tử input file mặc định */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.file-label {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: Arial, sans-serif;
+}
+
+/* Thay đổi màu khi di chuột qua */
+.file-label:hover {
+    background-color: #45a049;
+}
+
+/* Khi chọn file */
+.file-input:focus + .file-label {
+    outline: 2px solid #4CAF50;
+    outline-offset: 2px;
+}
+</style>
+</head>
+<body>
+    <h1>File Storage Tool</h1>
+        <main class="main-content">
+        	<div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImage">
+    <div class="caption"></div>
+    <button class="prev" onclick="changeImage(-1)">&#10094;</button>
+    <button class="next" onclick="changeImage(1)">&#10095;</button>
+</div>
+    <!-- Đăng ký tài khoản -->
+    <div id="registerSection">
+       <form class="form">
+       <p class="form-title">Create an account.</p>
+        <div class="input-container">
+<input type="text" id="username" placeholder="Enter Username">
+          <span>
+          </span>
+      </div>
+      <div class="input-container">
+<input type="password" id="password" placeholder="Enter password">
+        </div>
+<button type="submit" class="submit" onclick="register()">
+    Register
+</button>
+                      <p>Already have an account? <a href="#" onclick="showLogin()">I already have an account</a></p>
+   </form>
+    </div>
+
+    <!-- Đăng nhập -->
+    <div id="loginSection" style="display: none;">
+    <form class="form">
+       <p class="form-title">Sign in to your account</p>
+        <div class="input-container">
+<input type="text" id="loginUsername" placeholder="Enter Username">
+          <span>
+          </span>
+      </div>
+      <div class="input-container">
+<input type="password" id="loginPassword" placeholder="Enter password">
+        </div>
+<button type="submit" class="submit" onclick="login()">
+    Sign in
+</button>
+              <p>No account? <a href="#" onclick="showRegister()">Sign up</a></p>
+   </form>
+   
+    </div>
+
+    <!-- Upload file -->
+    <div id="fileSection" style="display: none;">
+        <h2>Upload File</h2>
+        <input type="file" id="fileInput">
+        <button onclick="uploadFile()">Upload</button>
+        <div id="fileList"></div>
+<!-- Khu vực quản lý email và mật khẩu -->
+<div id="storageSection">
+    <h2>Manage Email and Passwords</h2>
+    <button onclick="addEmailPassword()">Add Email/Password</button>
+    <div id="dataList"></div>
+</div>
+<div id="accountSettings">
+    <h3>Account Settings</h3>
+    <h4>Change Password</h4>
+    <input type="password" id="currentPassword" placeholder="Current Password" />
+    <input type="password" id="newPassword" placeholder="New Password" />
+    <button onclick="changePassword()">Change Password</button>
+    
+    <h4>Delete Account</h4>
+    <input type="password" id="deletePassword" placeholder="Current Password" />
+    <button onclick="deleteAccount()">Delete Account</button>
+</div>
+    </div>
+<!-- Lưu ý về bảo mật -->
+<div class="container">
+    <h2>Security Notice</h2>
+    <p>When using this file storage service, please keep the following security guidelines in mind:</p>
+    <ul>
+        <li><strong>Use strong passwords:</strong> Ensure that your passwords are complex and unique to protect your account.</li>
+        <li><strong>Do not share your credentials:</strong> Never share your username and password with anyone.</li>
+        <li><strong>Logout after use:</strong> Always log out of your account, especially on shared or public computers.</li>
+        <li><strong>Be cautious with file uploads:</strong> Only upload files from trusted sources to avoid malware or viruses.</li>
+        <li><strong>Regularly update your password:</strong> Change your password regularly to enhance security.</li>
+        <li><strong>Enable two-factor authentication:</strong> If available, enable two-factor authentication for additional security.</li>
+    </ul>
+</div>
+</main>
+    <script>
+const maxFileSize = 5 * 1024 * 1024; // 5 MB
+
+document.getElementById("fileInput").addEventListener("change", function(event) {
+    const file = event.target.files[0]; // Lấy file đầu tiên từ danh sách file
+    if (file && file.size > maxFileSize) {
+        alert("We do not support files over 5MB");
+        // Reset input để người dùng chọn lại file
+        event.target.value = ""; 
+    }
+});
+
+        function encrypt(text) {
+            return btoa(text); // Mã hóa bằng base64
+        }
+
+        function decrypt(text) {
+            return atob(text); // Giải mã base64
+        }
+
+        function showLogin() {
+            document.getElementById('registerSection').style.display = 'none';
+            document.getElementById('loginSection').style.display = 'block';
+        }
+function showRegister() {
+            document.getElementById('registerSection').style.display = 'block';
+            document.getElementById('loginSection').style.display = 'none';
+        }
+        // Đăng ký tài khoản và lưu thông tin mã hóa trong localStorage
+        function register() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (username && password) {
+                const encryptedPassword = encrypt(password);
+                localStorage.setItem('user_' + username, encryptedPassword);
+                alert('Account created successfully!');
+                showLogin();
+            } else {
+                alert('Please fill out all fields');
+            }
+        }
+
+        // Đăng nhập với thông tin được mã hóa trong localStorage
+        function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            const storedPassword = localStorage.getItem('user_' + username);
+            if (storedPassword && decrypt(storedPassword) === password) {
+                alert('Login successful!');
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('fileSection').style.display = 'block';
+                loadFiles();
+            } else {
+                alert('Invalid username or password');
+            }
+        }
+        function changePassword() {
+    const username = document.getElementById('loginUsername').value;
+    const currentPassword = document.getElementById('currentPassword').value;
+    const newPassword = document.getElementById('newPassword').value;
+
+    const storedPassword = localStorage.getItem('user_' + username);
+    if (storedPassword && decrypt(storedPassword) === currentPassword) {
+        const encryptedNewPassword = encrypt(newPassword);
+        localStorage.setItem('user_' + username, encryptedNewPassword);
+        alert('Password changed successfully!');
+    } else {
+        alert('Current password is incorrect!');
+    }
+}
+
+function deleteAccount() {
+    const username = document.getElementById('loginUsername').value;
+    const currentPassword = document.getElementById('deletePassword').value;
+
+    const storedPassword = localStorage.getItem('user_' + username);
+    if (storedPassword && decrypt(storedPassword) === currentPassword) {
+        localStorage.removeItem('user_' + username);
+        alert('Account deleted successfully!');
+        showLogin(); // Quay lại giao diện đăng nhập
+    } else {
+        alert('Current password is incorrect!');
+    }
+}
+
+        // Upload file và lưu dưới dạng base64 trong localStorage
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (file.size > maxFileSize) {
+                alert('File size exceeds 5 MB, please upload a smaller file.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const fileContent = event.target.result;
+                const storedFiles = JSON.parse(localStorage.getItem('files')) || [];
+                storedFiles.push({ name: file.name, content: fileContent, type: file.type });
+                localStorage.setItem('files', JSON.stringify(storedFiles));
+                alert('File uploaded successfully!');
+                loadFiles();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Hiển thị danh sách các file đã lưu trong localStorage
+        function loadFiles() {
+            const storedFiles = JSON.parse(localStorage.getItem('files')) || [];
+            const fileList = document.getElementById('fileList');
+            fileList.innerHTML = '';
+
+            storedFiles.forEach((file, index) => {
+                const fileDiv = document.createElement('div');
+                let fileDisplay = '';
+
+                // Xử lý hiển thị ảnh, âm thanh, và file txt
+                if (file.type.startsWith('image/')) {
+                    fileDisplay = `<img src="${file.content}" alt="${file.name}" style="max-width: 200px;">`;
+                } else if (file.type.startsWith('audio/')) {
+                    fileDisplay = `<audio controls><source src="${file.content}" type="${file.type}"></audio>`;
+                } else if (file.type === 'text/plain') {
+                    fileDisplay = `<button onclick="showTextFile(${index})">View Text</button> <pre id="textFile_${index}" style="display: none;">${atob(file.content.split(',')[1])}</pre>`;
+                } else {
+                    fileDisplay = `<p>Unsupported file type: ${file.name}</p>`;
+                }
+
+                fileDiv.innerHTML = `
+                    <p>${file.name}</p>
+                    ${fileDisplay}
+                    <button onclick="renameFile(${index})">Rename</button>
+                    <button onclick="downloadFile(${index})">Download</button>
+                    <button onclick="deleteFile(${index})">Delete</button>
+                `;
+                fileList.appendChild(fileDiv);
+            });
+        }
+
+        // Hiển thị file txt
+        function showTextFile(index) {
+            const textFile = document.getElementById(`textFile_${index}`);
+            textFile.style.display = textFile.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Đổi tên file
+        function renameFile(index) {
+            const newName = prompt("Enter new file name:");
+            if (newName) {
+                const storedFiles = JSON.parse(localStorage.getItem('files')) || [];
+                storedFiles[index].name = newName;
+                localStorage.setItem('files', JSON.stringify(storedFiles));
+                loadFiles();
+            }
+        }
+
+        // Tải file
+        function downloadFile(index) {
+            const storedFiles = JSON.parse(localStorage.getItem('files')) || [];
+            const file = storedFiles[index];
+            const a = document.createElement('a');
+            a.href = file.content;
+            a.download = file.name;
+            a.click();
+        }
+
+        // Xóa file từ localStorage
+        function deleteFile(index) {
+            const storedFiles = JSON.parse(localStorage.getItem('files')) || [];
+            storedFiles.splice(index, 1);
+            localStorage.setItem('files', JSON.stringify(storedFiles));
+            loadFiles();
+        }
+        function register() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if (username && password) {
+        if (localStorage.getItem('user_' + username)) {
+            alert('Account already exists! Please choose a different username.');
+            return;
+        }
+
+        const encryptedPassword = encrypt(password);
+        localStorage.setItem('user_' + username, encryptedPassword);
+        alert('Account created successfully!');
+        showLogin();
+    } else {
+        alert('Please fill out all fields');
+    }
+}
+storedFiles.forEach((file, index) => {
+    const fileDiv = document.createElement('div');
+    let fileDisplay = '';
+
+    if (file.type.startsWith('image/')) {
+        fileDisplay = `<img src="${file.content}" alt="${file.name}" style="max-width: 200px;">`;
+    } else if (file.type.startsWith('audio/')) {
+        fileDisplay = `<audio controls><source src="${file.content}" type="${file.type}"></audio>`;
+    } else if (file.type === 'video/mp4') {
+        fileDisplay = `<video controls width="300"><source src="${file.content}" type="video/mp4"></video>`;
+    } else if (file.type === 'text/plain') {
+        fileDisplay = `<button onclick="showTextFile(${index})">View Text</button> <pre id="textFile_${index}" style="display: none;">${atob(file.content.split(',')[1])}</pre>`;
+    } else {
+        fileDisplay = `<p>Unsupported file type: ${file.name}</p>`;
+    }
+
+    fileDiv.innerHTML = `
+        <p>${file.name}</p>
+        ${fileDisplay}
+        <button onclick="renameFile(${index})">Rename</button>
+        <button onclick="downloadFile(${index})">Download</button>
+        <button onclick="deleteFile(${index})">Delete</button>
+    `;
+    fileList.appendChild(fileDiv);
+});
+// Thêm một cặp email và mật khẩu vào kho lưu trữ (sau khi đăng nhập thành công)
+function addEmailPassword() {
+    const email = prompt('Enter the email:');
+    const password = prompt('Enter the password:');
+    if (email && password) {
+        const encryptedEmail = encrypt(email);
+        const encryptedPassword = encrypt(password);
+
+        let storedData = JSON.parse(localStorage.getItem('storage_' + username)) || [];
+        storedData.push({ email: encryptedEmail, password: encryptedPassword });
+        localStorage.setItem('storage_' + username, JSON.stringify(storedData));
+
+        alert('Email and password added successfully!');
+        loadStoredData(); // Tải lại dữ liệu sau khi thêm
+    } else {
+        alert('Both email and password are required.');
+    }
+}
+function loadStoredData() {
+    const storedData = JSON.parse(localStorage.getItem('storage_' + username)) || [];
+    const dataList = document.getElementById('dataList');
+    dataList.innerHTML = '';
+
+    storedData.forEach((item, index) => {
+        const decryptedEmail = decrypt(item.email);
+        const decryptedPassword = decrypt(item.password);
+
+        const dataDiv = document.createElement('div');
+        dataDiv.innerHTML = `
+            <p>Email: ${decryptedEmail} | Password: ${decryptedPassword}</p>
+            <button onclick="deleteData(${index})">Delete</button>
+            <button onclick="editData(${index})">Edit</button>
+        `;
+        dataList.appendChild(dataDiv);
+    });
+}
+// Xóa email và mật khẩu
+function deleteData(index) {
+    let storedData = JSON.parse(localStorage.getItem('storage_' + username)) || [];
+    store
