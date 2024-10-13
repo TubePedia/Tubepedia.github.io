@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tubepedia</title>
     <link rel="icon" href="https://lh3.googleusercontent.com/pw/AP1GczPIQa7Z8qHsvk9Ux9cOJF959-Unzkr4cjMWSCxhkeYqcjniXDNe7V_jjZwX52fsA6sQkdL9xvJYDnEkn3m8gI_oquQ6LPr7TB6DiO_R14Bb5hMHPWzP4Wdb-ZcDHNfS_dYKdUINxKVvsUlUsX57OwUD=w1024-h1024-s-no-gm?authuser=0" type="image/png">
+    <script>
+        window.onload = function() {
+            const currentUrl = window.location.href;
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Kiểm tra xem có tham số status=true không
+            if (!urlParams.has('status') || urlParams.get('status') !== 'true') {
+                const authUrl = `https://vinygamer124.github.io/authentication?url=${encodeURIComponent(currentUrl)}&status=false`;
+                window.location.href = authUrl; // Chuyển hướng đến trang xác thực
+            } else {
+                // Nếu đã xác thực, bạn có thể thực hiện hành động khác hoặc hiển thị nội dung trang
+            }
+        };
+    </script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-LGPDPJHD3L"></script>
 <script>
