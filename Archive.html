@@ -308,7 +308,6 @@ button.next {
 </div>
     <!-- Đăng ký tài khoản -->
     <div id="registerSection">
-       <form class="form">
        <p class="form-title">Create an account.</p>
         <div class="input-container">
 <input type="text" id="username" placeholder="Enter Username">
@@ -322,12 +321,10 @@ button.next {
     Register
 </button>
                       <p>Already have an account? <a href="#" onclick="showLogin()">I already have an account</a></p>
-   </form>
     </div>
 
     <!-- Đăng nhập -->
     <div id="loginSection" style="display: none;">
-    <form class="form">
        <p class="form-title">Sign in to your account</p>
         <div class="input-container">
 <input type="text" id="loginUsername" placeholder="Enter Username">
@@ -341,7 +338,6 @@ button.next {
     Sign in
 </button>
               <p>No account? <a href="#" onclick="showRegister()">Sign up</a></p>
-   </form>
    
     </div>
 
@@ -387,7 +383,7 @@ button.next {
 const maxFileSize = 5 * 1024 * 1024; // 5 MB
 
 document.getElementById("fileInput").addEventListener("change", function(event) {
-    const file = event.target.files[0]; // Lấy file đầu tiên từ danh sách file
+    const file = event.target.files[0];
     if (file && file.size > maxFileSize) {
         alert("We do not support files over 5MB");
         // Reset input để người dùng chọn lại file
@@ -425,20 +421,23 @@ function showRegister() {
             }
         }
 
-        // Đăng nhập với thông tin được mã hóa trong localStorage
-        function login() {
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
-            const storedPassword = localStorage.getItem('user_' + username);
-            if (storedPassword && decrypt(storedPassword) === password) {
-                alert('Login successful!');
-                document.getElementById('loginSection').style.display = 'none';
-                document.getElementById('fileSection').style.display = 'block';
-                loadFiles();
-            } else {
-                alert('Invalid username or password');
-            }
-        }
+// Đăng nhập với thông tin được mã hóa trong localStorage
+function login() {
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+    const storedPassword = localStorage.getItem('user_' + username);
+
+    if (!storedPassword) {
+        alert('Username not registered!');
+    } else if (decrypt(storedPassword) === password) {
+        alert('Login successful!');
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('fileSection').style.display = 'block';
+        loadFiles();
+    } else {
+        alert('Incorrect password!');
+    }
+}
         function changePassword() {
     const username = document.getElementById('loginUsername').value;
     const currentPassword = document.getElementById('currentPassword').value;
@@ -469,14 +468,16 @@ function deleteAccount() {
 }
 
         // Upload file và lưu dưới dạng base64 trong localStorage
-        function uploadFile() {
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
+function uploadFile() {
+    const fileInput = document.getElementById("fileInput");
+    const file = fileInput.files[0];
 
-            if (file.size > maxFileSize) {
-                alert('File size exceeds 5 MB, please upload a smaller file.');
-                return;
-            }
+    if (file && file.size <= maxFileSize) {
+        // Xử lý upload file
+        alert("File uploaded: " + file.name);
+    } else {
+        alert("File is too large. Limit is 5 MB.");
+    }
 
             const reader = new FileReader();
             reader.onload = function(event) {
@@ -565,7 +566,7 @@ function deleteAccount() {
             alert('Account already exists! Please choose a different username.');
             return;
         }
-
+        
         const encryptedPassword = encrypt(password);
         localStorage.setItem('user_' + username, encryptedPassword);
         alert('Account created successfully!');
