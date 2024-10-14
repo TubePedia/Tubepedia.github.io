@@ -278,8 +278,9 @@
 <li><strong>4. Dino, S. [Dino Sakura]. (2024, 2 tháng 6).</strong> <a href="https://www.youtube.com/live/uwZv1_TaU8w?si=bl3kGd5Z9EX6PEU-">DINO COSPLAY CẢM ƠN 400K SUBSCRIBE ! ! ! DINO SAKURA HẦU GÁI PHIÊN BẢN 2.0 NEW !!! ?</a></li>
             <!-- Tiếp tục với nội dung chi tiết về tiểu sử, ngoại hình, lịch sử, fan, 
             `;
-            document.getElementById('main-content').innerHTML = content;
-            document.getElementById('main-content').style.display = 'block'; // Hiện nội dung
+const mainContent = document.querySelector('.main-content'); // Sử dụng querySelector để chọn class
+            mainContent.innerHTML = content;
+            mainContent.style.display = 'block'; // Hiện nội dung
         }
 
         // Gọi hàm loadContent sau khi trang được tải xong
