@@ -1,4 +1,4 @@
-u// Định nghĩa các văn bản thông báo tìm kiếm bằng nhiều ngôn ngữ
+// Định nghĩa các văn bản thông báo tìm kiếm bằng nhiều ngôn ngữ
 const searchMessages = {
     en: {
         noResults: "No results found",
