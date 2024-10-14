@@ -308,9 +308,10 @@ const trustedSites = [
         sessionStorage.setItem('authenticated', 'true');
         console.log("Xác thực thành công, đã lưu vào session.");
 
-        // Xóa 'status' khỏi URL sau khi đã xử lý để tránh vòng lặp chuyển hướng
-        const cleanUrl = currentUrl.split('?')[0];  // Lấy URL mà không có query string
-        window.history.replaceState({}, document.title, cleanUrl);  // Cập nhật URL mà không làm reload trang
+        // Xóa tham số `status=true` khỏi URL để tránh xác thực lại khi tải lại trang
+        urlParams.delete('status');
+        const newUrl = window.location.pathname + '?' + urlParams.toString();
+        window.history.replaceState({}, '', newUrl);  // Thay đổi URL mà không tải lại trang
     }
 
     // Kiểm tra nếu người dùng đã xác thực hay chưa
