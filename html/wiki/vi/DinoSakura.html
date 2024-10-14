@@ -123,7 +123,48 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <h2>Dino Sakura</h2>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-section">
+        <img src="https://lh3.googleusercontent.com/pw/AP1GczP6r9-tE9Tubja8qMNkhBSZEB9PLkh_vEYa8IcwsMsz2DGEph1NOx2juWQRrJ76S7iwKVhyBNVpl1BGkNMiWi_ma2pqSGKLF31R6BIriFsjVajjbapAVj_9xAXV6yzVHKJCWHg1FVlQWuHD49MILbQd=w1024-h1024-s-no-gm?authuser=0" alt="Logo" class="footer-logo">
+        <div class="footer-links">
+            <h3>Explore Properties</h3>
+            <a href="#">Fandom</a>
+            <a href="#">Muthead</a>
+            <a href="#">Fanatical</a>
+        </div>
+        <div class="footer-social">
+            <h3>Theo dõi chúng tôi</h3>
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+            <a href="#">Instagram</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Tổng quan | What is Fandom? | Giới thiệu | Tuyển dụng | Báo chí | Liên hệ</p>
+        <p>Điều khoản sử dụng | Chính sách bảo mật | Digital Services Act</p>
+        <p>Sơ đồ web toàn cầu | Sơ đồ web cục bộ</p>
+        <p id="copyright"></p>
+    </div>
+    
+    
+    
+
+</div>
+</footer>
+    <!-- Link to the external JavaScript file -->
+    <script src="../../../js/scripts.js"></script>
+    <script src="../../../js/lang.js"></script>
+    <script src="../../../js/sleep-mode.js"></script>
+    <script src="../../../js/theme.js"></script>
+    <script>
+        // Hàm để tải nội dung vào div
+        function loadContent() {
+            const content = `
+                            <h2>Dino Sakura</h2>
             <img src="https://yt3.googleusercontent.com/Ezeu9gTd6t4GkdON9ocnJrhvIuRx7UEB-UjXvXsYKG5RQjpv2Sfvh4fyvZ1mpE-fYzN9vDJ9erI=s160-c-k-c0x00ffffff-no-rj" alt="Dino Sakura">
             <h3>Thông tin cơ bản</h3>
             <p><strong>Ngày debut:</strong> YouTube: Ngày 5 tháng 10 năm 2021</p>
@@ -235,42 +276,14 @@
 <li><strong>2. Dino, S. [Dino Sakura]. (2023, 15 tháng 10).</strong> <a href="https://youtu.be/BY4XKLJmaC4">RA MẮT CHỊ GÁI VỚI ANH EM VIEWER!</a></li>
 <li><strong>3. Dino, S. [Dino Sakura]. (2024, 10 tháng 2).</strong> <a href="https://youtu.be/wi0bjEv4jRE?t=620">300K ?</a></li>
 <li><strong>4. Dino, S. [Dino Sakura]. (2024, 2 tháng 6).</strong> <a href="https://www.youtube.com/live/uwZv1_TaU8w?si=bl3kGd5Z9EX6PEU-">DINO COSPLAY CẢM ƠN 400K SUBSCRIBE ! ! ! DINO SAKURA HẦU GÁI PHIÊN BẢN 2.0 NEW !!! ?</a></li>
-            <!-- Tiếp tục với nội dung chi tiết về tiểu sử, ngoại hình, lịch sử, fan, v.v. -->
-        </div>
-    </div>
+            <!-- Tiếp tục với nội dung chi tiết về tiểu sử, ngoại hình, lịch sử, fan, 
+            `;
+            document.getElementById('main-content').innerHTML = content;
+            document.getElementById('main-content').style.display = 'block'; // Hiện nội dung
+        }
 
-    <footer class="footer">
-    <div class="footer-section">
-        <img src="https://lh3.googleusercontent.com/pw/AP1GczP6r9-tE9Tubja8qMNkhBSZEB9PLkh_vEYa8IcwsMsz2DGEph1NOx2juWQRrJ76S7iwKVhyBNVpl1BGkNMiWi_ma2pqSGKLF31R6BIriFsjVajjbapAVj_9xAXV6yzVHKJCWHg1FVlQWuHD49MILbQd=w1024-h1024-s-no-gm?authuser=0" alt="Logo" class="footer-logo">
-        <div class="footer-links">
-            <h3>Explore Properties</h3>
-            <a href="#">Fandom</a>
-            <a href="#">Muthead</a>
-            <a href="#">Fanatical</a>
-        </div>
-        <div class="footer-social">
-            <h3>Theo dõi chúng tôi</h3>
-            <a href="#">Facebook</a>
-            <a href="#">Twitter</a>
-            <a href="#">Instagram</a>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>Tổng quan | What is Fandom? | Giới thiệu | Tuyển dụng | Báo chí | Liên hệ</p>
-        <p>Điều khoản sử dụng | Chính sách bảo mật | Digital Services Act</p>
-        <p>Sơ đồ web toàn cầu | Sơ đồ web cục bộ</p>
-        <p id="copyright"></p>
-    </div>
-    
-    
-    
-
-</div>
-</footer>
-    <!-- Link to the external JavaScript file -->
-    <script src="../../../js/scripts.js"></script>
-    <script src="../../../js/lang.js"></script>
-    <script src="../../../js/sleep-mode.js"></script>
-    <script src="../../../js/theme.js"></script>
+        // Gọi hàm loadContent sau khi trang được tải xong
+        window.onload = loadContent;
+    </script>
     </body>
 </html>
