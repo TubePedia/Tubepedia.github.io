@@ -1,4 +1,4 @@
-// Định nghĩa các văn bản thông báo tìm kiếm bằng nhiều ngôn ngữ
+u// Định nghĩa các văn bản thông báo tìm kiếm bằng nhiều ngôn ngữ
 const searchMessages = {
     en: {
         noResults: "No results found",
@@ -304,21 +304,18 @@ const trustedSites = [
 
     // Kiểm tra nếu có tham số status=true và người dùng đã xác thực thành công
     if (urlParams.has('status') && urlParams.get('status') === 'true') {
-        // Kiểm tra nếu người dùng tải lại trang
-        if (sessionStorage.getItem('authenticated') !== 'true') {
-            // Nếu chưa xác thực trong session này, bắt người dùng xác thực lại
-            const authUrl = `https://vinygamer124.github.io/authentication?url=${encodeURIComponent(currentUrl)}&status=false`;
-            window.location.href = authUrl;
-        } else {
-            // Nếu đã xác thực trong session này, hiển thị nội dung trang
-            console.log("Nội dung trang đã xác thực.");
-        }
-    } else {
-        // Chuyển hướng đến trang xác thực nếu không có status=true
+        // Gán session authenticated cho người dùng sau khi xác thực thành công
+        sessionStorage.setItem('authenticated', 'true');
+        console.log("Xác thực thành công, đã lưu vào session.");
+    }
+
+    // Kiểm tra nếu người dùng đã xác thực hay chưa
+    if (sessionStorage.getItem('authenticated') !== 'true') {
+        // Nếu chưa xác thực, chuyển hướng đến trang xác thực
         const authUrl = `https://vinygamer124.github.io/authentication?url=${encodeURIComponent(currentUrl)}&status=false`;
         window.location.href = authUrl;
+    } else {
+        // Nếu đã xác thực trong session này, hiển thị nội dung trang
+        console.log("Nội dung trang đã xác thực và người dùng đã đăng nhập.");
     }
 })();
-
-// Sau khi xác thực thành công từ trang authentication, thêm sessionStorage
-sessionStorage.setItem('authenticated', 'true');
