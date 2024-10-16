@@ -28,19 +28,25 @@ document.getElementById('language').addEventListener('change', function() {
 
     // Kiểm tra xem trang hiện tại có ngôn ngữ tương ứng trong danh sách không
     if (languagePages[selectedLang] && languagePages[selectedLang][currentPage]) {
+        // Lưu ngôn ngữ đã chọn vào localStorage
+        localStorage.setItem('selectedLanguage', selectedLang);
         // Chuyển hướng đến trang ngôn ngữ đã chọn
         window.location.href = `/${languagePages[selectedLang][currentPage]}`;
     } else {
         // Nếu không có trang tương ứng, chuyển về tiếng Anh và thông báo
         alert('Ngôn ngữ này không có, chuyển về tiếng Anh.');
+        localStorage.setItem('selectedLanguage', 'en');
         window.location.href = `/${languagePages['en'][currentPage] || 'index.html'}`;
     }
 });
 
 // Tự động phát hiện ngôn ngữ
 const detectLanguage = () => {
+    // Lấy ngôn ngữ đã lưu trong localStorage
+    const storedLang = localStorage.getItem('selectedLanguage');
     const userLang = navigator.language || navigator.userLanguage; // Dò tìm ngôn ngữ người dùng
-    const langCode = userLang.split('-')[0]; // Lấy mã ngôn ngữ chính
+    const langCode = storedLang || userLang.split('-')[0]; // Sử dụng ngôn ngữ đã lưu nếu có
+
     const languageSelect = document.getElementById('language');
 
     // Kiểm tra nếu ngôn ngữ được hỗ trợ
