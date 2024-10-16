@@ -1,49 +1,53 @@
-// Language redirection logic
-const languageMap = {
-    'en': {
-        'index.html': 'index.html',
-        'policies/terms-of-use.html': 'policies/terms-of-use.html',
-    },
-    'vi': {
-        'index.html': 'indexvi.html',
-        'policies/terms-of-use.html': 'policies/terms-of-usevi.html',
-    },
-    // Add other languages similarly
-};
-
-const currentPage = window.location.pathname.split('/').pop();
-const languageSelector = document.getElementById('language');
-
-languageSelector.addEventListener('change', (event) => {
-    const selectedLanguage = event.target.value;
-    let redirectPage = '';
-
-    // Check if the current page exists in the selected language
-    if (languageMap[selectedLanguage]) {
-        redirectPage = languageMap[selectedLanguage][currentPage] || languageMap['en'][currentPage];
-    } else {
-        // If the selected language doesn't exist, fallback to English
-        redirectPage = languageMap['en'][currentPage];
-        alert('Ngôn ngữ này không có, chuyển sang Tiếng Anh.');
-    }
-
-    if (redirectPage) {
-        window.location.href = redirectPage;
-    }
-});
-
-// Show/Hide settings popup
-document.getElementById('settings-button').onclick = () => {
+// script.js
+document.getElementById('settings-button').onclick = function() {
     document.getElementById('settings-popup').style.display = 'block';
 };
 
-document.getElementById('close-popup').onclick = () => {
+document.getElementById('close-popup').onclick = function() {
     document.getElementById('settings-popup').style.display = 'none';
 };
 
-// Auto-detect language and set the selector
-const userLanguage = navigator.language || navigator.userLanguage;
-const defaultLanguage = userLanguage.split('-')[0];
-if (languageMap[defaultLanguage]) {
-    languageSelector.value = defaultLanguage;
-}
+// Danh sách trang ngôn ngữ
+const languagePages = {
+    'en': {
+        'index': 'index.html',
+        'policies/terms-of-use': 'policies/terms-of-use.html',
+    },
+    'vi': {
+        'index': 'indexvi.html',
+        'policies/terms-of-use': 'policies/terms-of-usevi.html',
+    },
+    // Thêm các ngôn ngữ khác tương tự
+};
+
+// Chức năng chuyển đổi ngôn ngữ
+document.getElementById('language').addEventListener('change', function() {
+    const selectedLang = this.value;
+    const currentPath = window.location.pathname;
+    const currentPage = currentPath.split('/').pop().split('.')[0]; // Lấy tên file mà không có đuôi
+
+    // Kiểm tra xem trang hiện tại có ngôn ngữ tương ứng trong danh sách không
+    if (languagePages[selectedLang] && languagePages[selectedLang][currentPage]) {
+        // Chuyển hướng đến trang ngôn ngữ đã chọn
+        window.location.href = `/${languagePages[selectedLang][currentPage]}`;
+    } else {
+        // Nếu không có trang tương ứng, chuyển về tiếng Anh và thông báo
+        alert('Ngôn ngữ này không có, chuyển về tiếng Anh.');
+        window.location.href = `/${languagePages['en'][currentPage] || 'index.html'}`;
+    }
+});
+
+// Tự động phát hiện ngôn ngữ
+const detectLanguage = () => {
+    const userLang = navigator.language || navigator.userLanguage; // Dò tìm ngôn ngữ người dùng
+    const langCode = userLang.split('-')[0]; // Lấy mã ngôn ngữ chính
+    const languageSelect = document.getElementById('language');
+
+    // Kiểm tra nếu ngôn ngữ được hỗ trợ
+    if (languagePages[langCode]) {
+        languageSelect.value = langCode; // Chọn ngôn ngữ tương ứng
+    }
+};
+
+// Gọi hàm phát hiện ngôn ngữ khi tải trang
+window.onload = detectLanguage;
