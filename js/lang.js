@@ -9,36 +9,36 @@ document.getElementById('close-popup').onclick = function() {
 
 // Danh sách trang ngôn ngữ
 const languagePages = {
-    'en': {
-        'index': 'index.html',
-        'policies/terms-of-use': 'policies/terms-of-use.html',
+    'index.html': {
+        'en': 'index.html',
+        'vi': 'indexvi.html',
     },
-    'vi': {
-        'index': 'indexvi.html',
-        'policies/terms-of-use': 'policies/terms-of-usevi.html',
+    'policies/terms-of-use.html': {
+        'en': 'policies/terms-of-use.html',
+        'vi': 'policies/terms-of-usevi.html',
     },
-    // Thêm các ngôn ngữ khác tương tự
+    // Thêm các trang khác tương tự
 };
 
 // Chức năng chuyển đổi ngôn ngữ
 document.getElementById('language').addEventListener('change', function() {
     const selectedLang = this.value;
     const currentPath = window.location.pathname;
-    const currentPage = currentPath.split('/').pop().split('.')[0]; // Lấy tên file mà không có đuôi
+    const currentPage = currentPath.split('/').pop(); // Lấy tên file bao gồm đuôi
 
     // Kiểm tra xem trang hiện tại có ngôn ngữ tương ứng trong danh sách không
-    if (languagePages[selectedLang] && languagePages[selectedLang][currentPage]) {
+    if (languagePages[currentPage] && languagePages[currentPage][selectedLang]) {
         // Nếu đang ở đúng trang ngôn ngữ, không chuyển hướng
-        if (currentPath === `/${languagePages[selectedLang][currentPage]}`) {
+        if (currentPath === `/${languagePages[currentPage][selectedLang]}`) {
             alert('Bạn đã ở trang này.');
         } else {
             // Chuyển hướng đến trang ngôn ngữ đã chọn
-            window.location.href = `/${languagePages[selectedLang][currentPage]}`;
+            window.location.href = `/${languagePages[currentPage][selectedLang]}`;
         }
     } else {
         // Nếu không có trang tương ứng, chuyển về tiếng Anh và thông báo
         alert('Ngôn ngữ này không có, chuyển về tiếng Anh.');
-        window.location.href = `/${languagePages['en'][currentPage] || 'index.html'}`;
+        window.location.href = `/${languagePages[currentPage]['en'] || 'index.html'}`;
     }
 });
 
@@ -49,7 +49,7 @@ const detectLanguage = () => {
     const languageSelect = document.getElementById('language');
 
     // Kiểm tra nếu ngôn ngữ được hỗ trợ
-    if (languagePages[langCode]) {
+    if (languagePages[Object.keys(languagePages).find(page => currentPath.includes(page))]) {
         languageSelect.value = langCode; // Chọn ngôn ngữ tương ứng
     }
 };
