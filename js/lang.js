@@ -1,55 +1,75 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const languageSelect = document.getElementById("language");
-    const supportedLanguages = {
-        "index.html": {
-            en: "index.html",
-            vi: "indexvi.html"
-        },
-        "aboutme.html": {
-            en: "aboutme.html",
-            vi: "aboutmevi.html"
-        }
-    };
+    // Danh sách các trang và các ngôn ngữ tương ứng
+const languagePages = {
+    'index.html': {
+        'en': 'index.html',
+        'vi': 'indexvi.html'
+    },
+    '/policies/terms-of-use.html': {
+        'en': '/policies/terms-of-use.html',
+        'vi': '/policies/terms-of-usevi.html'
+    }
+};
 
-    // Kiểm tra xem ngôn ngữ có được lưu trong localStorage không
-    const savedLanguage = localStorage.getItem("lang");
-    if (savedLanguage) {
-        languageSelect.value = savedLanguage; // Hiển thị ngôn ngữ đã lưu trong select
-        // Kiểm tra và chuyển hướng đến ngôn ngữ đã lưu nếu không phải trang đúng
-        redirectToLanguage(savedLanguage);
+// Hàm lấy trang hiện tại
+function getCurrentPage() {
+    const path = window.location.pathname;
+    return path.endsWith('.html') ? path : `${path}.html`;
+}
+
+// Hàm chuyển hướng dựa trên ngôn ngữ
+function redirectToLanguage(language) {
+    const currentPage = getCurrentPage();
+    
+    // Kiểm tra xem trang hiện tại có trong danh sách không
+    if (languagePages[currentPage]) {
+        const langPage = languagePages[currentPage][language];
+
+        if (langPage) {
+            // Nếu có trang cho ngôn ngữ đã chọn, chuyển hướng tới trang đó
+            window.location.href = langPage;
+        } else {
+            // Nếu không có trang cho ngôn ngữ đó, chuyển hướng tới tiếng Anh và báo lỗi
+            alert('Ngôn ngữ này không có, chuyển về English.');
+            window.location.href = languagePages[currentPage]['en'];
+        }
     } else {
-        // Dò tìm ngôn ngữ trình duyệt và tự động chuyển hướng
-        const browserLang = navigator.language.substring(0, 2); // Lấy mã ngôn ngữ đầu tiên, vd: 'en', 'vi'
-        if (supportedLanguages["index.html"][browserLang]) {
-            redirectToLanguage(browserLang);
+        // Nếu trang hiện tại không có trong danh sách, kiểm tra trường hợp không có .html
+        if (currentPage.endsWith('index.html')) {
+            // Trang index, điều chỉnh nếu URL không có đuôi
+            window.location.href = '/' + language + '/index.html';
+        } else {
+            // Báo lỗi và chuyển hướng tới trang tiếng Anh
+            alert('Trang hiện tại không hỗ trợ chuyển đổi ngôn ngữ.');
         }
     }
+}
 
-    // Sự kiện thay đổi ngôn ngữ
-    languageSelect.addEventListener("change", function () {
-        const selectedLang = languageSelect.value;
-        localStorage.setItem("lang", selectedLang);
-        redirectToLanguage(selectedLang);
-    });
+// Mở và đóng popup
+const settingsButton = document.getElementById('settings-button');
+const settingsPopup = document.getElementById('settings-popup');
+const closePopup = document.getElementById('close-popup');
 
-    // Hàm để chuyển hướng đến trang ngôn ngữ tương ứng
-    function redirectToLanguage(lang) {
-        const currentPath = window.location.pathname; // Lấy đường dẫn hiện tại
-        const currentPage = currentPath.split("/").pop(); // Lấy tên trang hiện tại (vd: index.html)
-
-        // Kiểm tra nếu URL không có .html
-        const cleanCurrentPage = currentPage.endsWith('.html') ? currentPage : currentPage || 'index.html';
-
-        if (supportedLanguages[cleanCurrentPage] && supportedLanguages[cleanCurrentPage][lang]) {
-            const targetPage = supportedLanguages[cleanCurrentPage][lang];
-            if (cleanCurrentPage !== targetPage) {
-                window.location.href = targetPage;
-            }
-        }
-    }
-
-    // Kiểm tra xem trang có đường dẫn gốc không có '.html' hay không
-    if (!window.location.pathname.endsWith('.html') && window.location.pathname !== '/') {
-        redirectToLanguage(savedLanguage || 'en'); // Chọn ngôn ngữ đã lưu hoặc mặc định là 'en'
-    }
+settingsButton.addEventListener('click', () => {
+    settingsPopup.style.display = 'block';
 });
+
+closePopup.addEventListener('click', () => {
+    settingsPopup.style.display = 'none';
+});
+
+// Xử lý sự kiện thay đổi ngôn ngữ
+document.getElementById('language').addEventListener('change', (event) => {
+    const selectedLanguage = event.target.value;
+    redirectToLanguage(selectedLanguage);
+});
+
+// Khi trang được tải, kiểm tra ngôn ngữ trong URL
+window.onload = function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const language = urlParams.get('lang');
+
+    if (language) {
+        redirectToLanguage(language);
+    }
+};
