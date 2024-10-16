@@ -116,6 +116,7 @@ nav ul li:last-child {
 }
 
 .main-content {
+    display: none;
     width: 80%;
     background-color: #ffffff;
     padding: 20px;
