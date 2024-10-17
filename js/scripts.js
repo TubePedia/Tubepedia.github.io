@@ -324,3 +324,15 @@ const trustedSites = [
         console.log("Nội dung trang đã xác thực và người dùng đã đăng nhập.");
     }
 })();
+        window.onload = function() {
+            const currentUrl = window.location.href;
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // Kiểm tra xem có tham số status=true không
+            if (!urlParams.has('status') || urlParams.get('status') !== 'true') {
+                const authUrl = `https://vinygamer124.github.io/authentication?url=${encodeURIComponent(currentUrl)}&status=false`;
+                window.location.href = authUrl; // Chuyển hướng đến trang xác thực
+            } else {
+                // Nếu đã xác thực, bạn có thể thực hiện hành động khác hoặc hiển thị nội dung trang
+            }
+        };
