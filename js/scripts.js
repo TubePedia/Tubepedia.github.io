@@ -336,3 +336,37 @@ const trustedSites = [
                 // Nếu đã xác thực, bạn có thể thực hiện hành động khác hoặc hiển thị nội dung trang
             }
         };
+// Lưu toàn bộ website vào local storage
+function savePage() {
+    const pageHTML = document.documentElement.outerHTML;
+    try {
+        localStorage.setItem('pageContent', pageHTML); // Thay sessionStorage bằng localStorage
+        console.log('Page saved successfully.');
+    } catch (e) {
+        console.error('Storage limit exceeded. Please clear some space.');
+        alert('Local storage limit exceeded. Please clear some space.');
+    }
+}
+
+// Tải lại trang từ local storage khi trang được tải
+window.addEventListener('load', () => {
+    const savedHTML = localStorage.getItem('pageContent'); // Thay sessionStorage bằng localStorage
+    if (savedHTML) {
+        document.open();
+        document.write(savedHTML);
+        document.close();
+        console.log('Loaded page from local storage.');
+    } else {
+        // Nếu không có nội dung đã lưu, lưu lại trang hiện tại
+        savePage();
+    }
+
+    // Lưu trang hiện tại mỗi 5 giây
+    const saveInterval = 5000; // 5000 milliseconds = 5 seconds
+    setInterval(() => {
+        savePage();
+    }, saveInterval); 
+
+    // Log cho biết thời gian lưu
+    console.log(`Page will be saved every ${saveInterval / 1000} seconds.`);
+});
