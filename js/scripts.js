@@ -370,3 +370,4 @@ window.addEventListener('load', () => {
     // Log cho biết thời gian lưu
     console.log(`Page will be saved every ${saveInterval / 1000} seconds.`);
 });
+eruda.init();
