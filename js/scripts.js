@@ -159,15 +159,6 @@ updateCopyright();
 // Lấy thời gian cập nhật cuối cùng từ document
 const lastUpdated = new Date(document.lastModified);
 
-// Hàm kiểm tra múi giờ người dùng để định dạng giờ 12h hoặc 24h
-function is24HourFormat() {
-    const userLocale = navigator.language || 'en-US'; // Lấy ngôn ngữ của người dùng
-    const region = userLocale.split('-')[1] || 'US'; // Lấy quốc gia
-    const regions24Hour = ['VN', 'FR', 'DE', 'RU', 'CN']; // Các quốc gia sử dụng định dạng 24h
-
-    return regions24Hour.includes(region);
-}
-
 // Định nghĩa bản dịch đa ngôn ngữ
 const translations = {
     en: {
@@ -196,9 +187,17 @@ const translations = {
     }
 };
 
-// Lấy ngôn ngữ người dùng cho phần cập nhật cuối cùng
-const currentLanguage = navigator.language.split('-')[0]; // Lấy phần đầu của ngôn ngữ, ví dụ: "en" từ "en-US"
+// Lấy ngôn ngữ người dùng và chọn ngôn ngữ phù hợp
+const currentLanguage = navigator.language.split('-')[0]; // Lấy phần đầu của ngôn ngữ
 const lang = translations[currentLanguage] ? currentLanguage : 'en'; // Nếu không có ngôn ngữ thì mặc định là tiếng Anh
+
+// Hàm kiểm tra múi giờ người dùng để định dạng giờ 12h hoặc 24h
+function is24HourFormat() {
+    const region = navigator.language.split('-')[1] || 'US'; // Lấy quốc gia
+    const regions24Hour = ['VN', 'FR', 'DE', 'RU', 'CN']; // Các quốc gia sử dụng định dạng 24h
+
+    return regions24Hour.includes(region);
+}
 
 // Định dạng thời gian theo quốc gia
 const options = {
@@ -222,6 +221,7 @@ function timeSinceLastUpdate(lastUpdate) {
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
 
+    // Sử dụng cấu trúc các điều kiện để trả về kết quả phù hợp
     if (days > 0) {
         return `${days} ${translations[lang].daysAgo}`;
     } else if (hours > 0) {
