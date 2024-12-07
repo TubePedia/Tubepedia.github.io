@@ -336,4 +336,3 @@ const trustedSites = [
                 // Nếu đã xác thực, bạn có thể thực hiện hành động khác hoặc hiển thị nội dung trang
             }
         };
-eruda.init();
